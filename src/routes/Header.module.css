@@ -1,0 +1,56 @@
+.nav {
+  overflow: hidden;
+  background-color: #669c2a;
+}
+.desktop__nav {
+  display: flex;
+  justify-content: center;
+}
+.nav .list,
+a {
+  list-style-type: none;
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 17px;
+}
+.nav .list:hover {
+  border-top: 2px solid rgb(206, 206, 49);
+  border-bottom: 1px dotted rgb(206, 206, 49);
+  color: yellow;
+  cursor: pointer;
+}
+.nav a.icon {
+  display: none;
+}
+@media screen and (max-width: 600px) {
+  .nav .list {
+    display: none;
+  }
+  .nav .logo {
+    display: block;
+  }
+  .nav a.icon {
+    float: right;
+    display: block;
+  }
+}
+@media screen and (max-width: 600px) {
+  .nav.responsive {
+    position: relative;
+  }
+  .nav.responsive .icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  .nav.responsive .list {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+}

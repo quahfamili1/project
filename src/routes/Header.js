@@ -1,15 +1,37 @@
-import { Link, Outlet } from "react-router-dom";
+import React, { useState } from "react";
+import styles from "./Header.module.css";
+import { Link } from "react-router-dom";
 
-function Header() {
+const Header = () => {
+  const [clicked, setClicked] = useState(false);
   return (
-    <>
-      <h1>HDB app</h1>
-      <nav>
-        <Link to="/homepage">Homepage</Link> | <Link to="/result">Result</Link>{" "}
-        | <Link to="/trend">Trends</Link>| <Link to="/aboutus">About-us</Link>
-      </nav>
-      <Outlet />
-    </>
+    <div
+      className={
+        clicked
+          ? `${styles.nav} ${styles.responsive}`
+          : `${styles.nav} ${styles.desktop__nav}`
+      }
+    >
+      <h1>logo</h1>
+      <ul>
+        <Link to="/" className={styles.list}>
+          <li>Home</li>
+        </Link>
+        <Link to="/Result" className={styles.list}>
+          <li>Result</li>
+        </Link>
+        <Link to="/Trend" className={styles.list}>
+          <li>Trends</li>
+        </Link>
+        <Link to="/Aboutus" className={styles.list}>
+          <li>About us</li>
+        </Link>
+        <a className={styles.icon} onClick={() => setClicked(!clicked)}>
+          <i className="fa fa-bars"></i>
+        </a>
+      </ul>
+    </div>
   );
-}
+};
+
 export default Header;
