@@ -1,11 +1,10 @@
 import "./App.css";
+import AveragePrice from "./pages/AveragePrice";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <h1>Project</h1>
-      </header>
+      <AveragePrice />
     </div>
   );
 }

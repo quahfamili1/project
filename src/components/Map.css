@@ -1,0 +1,33 @@
+.leaflet-container {
+  height: 100vh;
+}
+
+.map-container {
+  width: 100vh;
+}
+
+
+.cluster-icon {
+  box-shadow: none;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 10px;
+  padding: 10px;
+  background-color: black;
+  color:white
+}
+
+.red-cluster-icon {
+  background-color: white;
+  border: rgb(233, 28, 28);
+}
+
+.green-cluster-icon {
+  background-color: white;
+  border: rgb(70, 219, 70);
+}
+
+.orange-cluster-icon {
+  background-color: white;
+  border: rgb(245, 229, 14);
+}
