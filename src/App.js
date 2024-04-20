@@ -8,6 +8,7 @@ import Result from "./routes/Result";
 import Trend from "./routes/Trend";
 import Aboutus from "./routes/Aboutus";
 import AveragePrice from "./pages/AveragePrice";
+import { FilterProvider } from "./context/FilterContext";
 import { Bar } from 'react-chartjs-2';
 import Table from './Table';
 
@@ -17,8 +18,8 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Project</h1>
       </header>
+      <FilterProvider>
       <BrowserRouter>
         <Header />
         <Routes>
@@ -30,6 +31,7 @@ function App() {
         </Routes>
       </BrowserRouter>
       <AveragePrice />
+      </FilterProvider>
     </div>
   );
 }
