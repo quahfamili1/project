@@ -25,3 +25,12 @@
     transform: rotate(360deg);
   }
 }
+
+.bubble-button {
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 50%; /* Makes it circular */
+  background-color: #01abdf; /* Bubble-like color */
+  opacity: 0.8; /* Adjust opacity for the effect */
+  cursor: pointer;
+}
