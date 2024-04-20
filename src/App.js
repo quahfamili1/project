@@ -13,6 +13,9 @@ function App() {
 
   return (
     <div className="App">
+      <header className="App-header">
+        <h1>Project</h1>
+      </header>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Header />}>
