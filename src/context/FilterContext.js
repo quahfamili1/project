@@ -17,9 +17,7 @@ export function ProductProvider({ children }) {
   };
 
   return (
-    <ProductContext.Provider value={context}>
-      {children}
-    </ProductContext.Provider>
+    <FilterContext.Provider value={context}>{children}</FilterContext.Provider>
   );
 }
 
