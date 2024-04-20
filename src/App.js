@@ -6,12 +6,16 @@ import Homepage from "./routes/Homepage";
 import Result from "./routes/Result";
 import Trend from "./routes/Trend";
 import Aboutus from "./routes/Aboutus";
+import AveragePrice from "./pages/AveragePrice";
 
 function App() {
   const DefaultPage = () => <p>Nothing to see here!</p>;
 
   return (
     <div className="App">
+      <header className="App-header">
+        <h1>Project</h1>
+      </header>
       <BrowserRouter>
         <Header />
         <Routes>
@@ -22,6 +26,7 @@ function App() {
           <Route path="*" element={<DefaultPage />} />
         </Routes>
       </BrowserRouter>
+      <AveragePrice />
     </div>
   );
 }
