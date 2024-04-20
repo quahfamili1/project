@@ -2,12 +2,7 @@ import apiHDB from "./api/apiHDB";
 import { useState, useEffect } from "react";
 import { hdbCoord } from "./data/hdbCoord";
 
-let rowLimit = 10000;
-let totalRow = 0;
-
 const apiHDBGet = async ({ rowLimit, totalRow, context, setLoading }) => {
-
-
   try {
     //First call to check how many rows are there
     const response = await apiHDB.get(``, {
@@ -21,12 +16,20 @@ const apiHDBGet = async ({ rowLimit, totalRow, context, setLoading }) => {
     totalRow = response.data.result.total;
     console.log("totalRow", totalRow);
 
+    //To delete later
+    totalRow = 15;
+
+    //Set rowLimit if totalRow < rowLimit
+    if (totalRow < rowLimit) {
+      rowLimit = totalRow;
+    }
+
     const promises = [];
 
     //Add filter
 
     let rowRead = 0;
-    while (rowRead <= totalRow) {
+    while (rowRead < totalRow) {
       promises.push(
         await apiHDB.get(``, {
           params: {
@@ -46,10 +49,9 @@ const apiHDBGet = async ({ rowLimit, totalRow, context, setLoading }) => {
 
     //Use Promise.all combinator
     const apiCallResults = await Promise.all(promises);
-    
-    
+
     //Save in listofHdb
-    const listOfHdb = []
+    const listOfHdb = [];
 
     apiCallResults.map((apiCallResult) => {
       const records = apiCallResult.data.result.records;
@@ -83,6 +85,8 @@ const apiHDBGet = async ({ rowLimit, totalRow, context, setLoading }) => {
       }
     });
 
+    console.log("listofHdb", listOfHdb)
+
     //Get avg price
     const varAveragePrices = [];
     varTotalPricePerAddresses.map((varTotalPricePerAddress, index) => {
@@ -110,11 +114,11 @@ const apiHDBGet = async ({ rowLimit, totalRow, context, setLoading }) => {
         }
       }
     );
-    
-    //context.results = listOfHdb
-    context.results = listOfHdbWithCoord
 
-    console.log("context in helperapi", context)
+    //context.results = listOfHdb
+    context.setResults(listOfHdbWithCoord);
+
+    console.log("context in helperapi", context);
 
     setLoading(false);
   } catch (error) {

@@ -1,19 +1,16 @@
-import { createContext } from "react";
+import { createContext, useState } from "react";
 const FilterContext = createContext();
 
 export function FilterProvider({ children }) {
-  const setFilter = () => {};
-
-  const setResult = () => {};
-
-  const filter = [];
-  const results = [];
+  
+  const [filter, setFilter] = useState([]);
+  const [results, setResults] = useState([]);
 
   const context = {
     filter,
     results,
     setFilter,
-    setResult,
+    setResults,
   };
 
   return (
