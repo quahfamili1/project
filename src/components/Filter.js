@@ -1,5 +1,6 @@
 import apiHDB from "./api/apiHDB";
 import { useState, useEffect } from "react";
+import { filterContext } from "./context/FilterContext";
 
 function Filter() {
   let initialLoad = true;
