@@ -1,6 +1,6 @@
 import React from "react";
 //import { apiLTA, apiHDB } from "../api/api";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { MapContainer, TileLayer, useMap, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 import "./Map.css";
@@ -11,10 +11,15 @@ import { Icon } from "leaflet";
 //import hdbCarparkLocations from "../data/hdbCarparkLocations";
 
 import AddressIcon from "./AddressIcon";
+import FilterContext from "../context/FilterContext";
 
-const Map = ({ addresses }) => {
-
+const Map = () => {
+  
   //const map = useMap();
+  const context = useContext(FilterContext)
+  console.log("context in map", context)
+  const addresses = context.results
+  console.log("addresses in map", context.results)
 
   const createCustomClusterIcon = (cluster) => {
     const allChildMarkers = cluster.getAllChildMarkers();
@@ -50,19 +55,23 @@ const Map = ({ addresses }) => {
           iconCreateFunction={createCustomClusterIcon}
         >
           {addresses.map((eachAddress) => {
-            const lat = eachAddress.lat;
-            const lon = eachAddress.lon;
-
-            if (lat && lon) {
-              return (
-                <AddressIcon
-                  avgPrice={eachAddress.avg_price}
-                  lat={lat}
-                  lon={lon}
-                  address={eachAddress.address}
-                />
-              );
+            if (eachAddress)
+            {
+              const lat = eachAddress.lat;
+              const lon = eachAddress.lon;
+  
+              if (lat && lon) {
+                return (
+                  <AddressIcon
+                    avgPrice={eachAddress.avg_price}
+                    lat={lat}
+                    lon={lon}
+                    address={eachAddress.address}
+                  />
+                );
+              }
             }
+
           })}
         </MarkerClusterGroup>
       </MapContainer>
