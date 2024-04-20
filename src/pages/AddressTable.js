@@ -1,7 +1,13 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useContext } from "react";
 import "./AddressTable.css";
+import FilterContext from "../context/FilterContext";
 
-const AddressTable = ({ addresses }) => {
+const AddressTable = () => {
+
+  const context = useContext(FilterContext)
+  console.log("context in addresstable", context)
+  const addresses = context.results
+
   const [currentPage, setCurrentPage] = useState(1);
   const recordsPerPage = 20;
   const lastIndex = currentPage * recordsPerPage;
@@ -41,7 +47,8 @@ const AddressTable = ({ addresses }) => {
               <td>{i + 1}</td>
               <td>{address.address}</td>
               <td>{address.avg_price}</td>
-              <td>{<button>a</button>}</td>
+              <td>{<button>Show on map</button>}</td>
+              <td>{<button>Show previous transactions</button>}</td>
             </tr>
           ))}
         </tbody>

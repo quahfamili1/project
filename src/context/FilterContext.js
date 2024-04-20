@@ -1,7 +1,7 @@
 import { createContext } from "react";
 const FilterContext = createContext();
 
-export function ProductProvider({ children }) {
+export function FilterProvider({ children }) {
   const setFilter = () => {};
 
   const setResult = () => {};
@@ -17,7 +17,9 @@ export function ProductProvider({ children }) {
   };
 
   return (
-    <FilterContext.Provider value={context}>{children}</FilterContext.Provider>
+    <FilterContext.Provider value={context}>
+      {children}
+    </FilterContext.Provider>
   );
 }
 

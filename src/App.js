@@ -7,6 +7,7 @@ import Result from "./routes/Result";
 import Trend from "./routes/Trend";
 import Aboutus from "./routes/Aboutus";
 import AveragePrice from "./pages/AveragePrice";
+import { FilterProvider } from "./context/FilterContext";
 
 function App() {
   const DefaultPage = () => <p>Nothing to see here!</p>;
@@ -14,8 +15,8 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Project</h1>
       </header>
+      <FilterProvider>
       <BrowserRouter>
         <Header />
         <Routes>
@@ -27,6 +28,7 @@ function App() {
         </Routes>
       </BrowserRouter>
       <AveragePrice />
+      </FilterProvider>
     </div>
   );
 }
