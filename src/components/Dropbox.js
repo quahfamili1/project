@@ -1,67 +1,93 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState } from "react";
 import FilterContext from "../context/FilterContext";
-import Button from './SubmitButton';
+import Button from "./SubmitButton";
 import { useNavigate } from "react-router-dom";
 
 function Dropbox() {
-    const context = useContext(FilterContext)
-    const addresses = context.results
-    const navigate = useNavigate();
-    const handleFilters = () => {
-        const newFilter = {
-            // month: ctx.name,
-            // town: ctx.count,
-            // flat_type: ctx.price,
-            // storey_range: ctx.discount,
-            // floor_area_sqm:ctx.name,
-            // flat_model: ctx.count * ctx.price * (100-ctx.discount)/100,
-            // remaining_lease: ctx.name,
-            // resale_price:ctx.name,
-        };
-        const filterHistory = [...context.filters, newFilter];
-        context.setFilters(filterHistory);
-        navigate (`/result`);
-    }
+  const context = useContext(FilterContext);
+  // const addresses = context.results;
+  const navigate = useNavigate();
+
+  //add variable for selected filter
+  let selectedTown = "",
+    selectedFlatType = "",
+    selectedStoryRange = "",
+    selectedFlatModel = "";
+
+  const handleFilters = () => {
+    const newFilter = {
+      // month: ctx.name,
+      town: selectedTown,
+      flat_type: selectedFlatType,
+      storey_range: selectedStoryRange,
+      // floor_area_sqm:ctx.name,
+      flat_model: selectedFlatModel,
+      // remaining_lease: ctx.name,
+      // resale_price:ctx.name,
+    };
+
+    const filterHistory = [...context.filters, newFilter];
+    context.setFilters(filterHistory);
+    console.log(filterHistory);
+
+    navigate(`/result`);
+  };
   return (
     <>
-         <select
+      <select
         onChange={(e) => {
-          console.log(addresses);
+          selectedTown = e.target.value;
         }}
       >
         {Town.map((a) => {
-          return (<option key={a} value={a}>{a}</option>);
+          return (
+            <option key={a} value={a}>
+              {a}
+            </option>
+          );
         })}
       </select>
-      
+
       <select
         onChange={(e) => {
-          console.log(e.target.value);
+          selectedFlatType = e.target.value;
         }}
       >
         {FlatType.map((a) => {
-          return (<option key={a} value={a}>{a}</option>);
+          return (
+            <option key={a} value={a}>
+              {a}
+            </option>
+          );
         })}
       </select>
-      
+
       <br></br>
 
-       <select
+      <select
         onChange={(e) => {
-          console.log(e.target.value);
+          selectedStoryRange = e.target.value;
         }}
       >
         {StoryRange.map((a) => {
-          return (<option key={a} value={a}>{a}</option>);
+          return (
+            <option key={a} value={a}>
+              {a}
+            </option>
+          );
         })}
       </select>
       <select
         onChange={(e) => {
-          console.log(e.target.value);
+          selectedFlatModel = e.target.value;
         }}
       >
         {FlatModel.map((a) => {
-          return (<option key={a} value={a}>{a}</option>);
+          return (
+            <option key={a} value={a}>
+              {a}
+            </option>
+          );
         })}
       </select>
 
@@ -84,49 +110,50 @@ function Dropbox() {
         <option value="saab">Saab</option>
       </select>
       <br></br>
-      <Button label="Submit" onClick={handleFilters}/>
+      <Button label="Submit" onClick={handleFilters} />
     </>
   );
 }
 export default Dropbox;
 
 const Town = [
-"ANG MO KIO",
-"BEDOK",
-"BISHAN",
-"BUKIT BATOK",
-"BUKIT MERAH",
-"BUKIT PANJANG",
-"BUKIT TIMAH",
-"CENTRAL AREA",
-"CHOA CHU KANG",
-"CLEMENTI",
-"GEYLANG",
-"HOUGANG",
-"JURONG EAST",
-"JURONG WEST",
-"KALLANG/WHAMPOA",
-"MARINE PARADE",
-"PASIR RIS",
-"PUNGGOL",
-"QUEENSTOWN",
-"SEMBAWANG",
-"SENGKANG",
-"SERANGOON",
-"TAMPINES",
-"TOA PAYOH",
-"WOODLANDS",
-"YISHUN"]
+  "ANG MO KIO",
+  "BEDOK",
+  "BISHAN",
+  "BUKIT BATOK",
+  "BUKIT MERAH",
+  "BUKIT PANJANG",
+  "BUKIT TIMAH",
+  "CENTRAL AREA",
+  "CHOA CHU KANG",
+  "CLEMENTI",
+  "GEYLANG",
+  "HOUGANG",
+  "JURONG EAST",
+  "JURONG WEST",
+  "KALLANG/WHAMPOA",
+  "MARINE PARADE",
+  "PASIR RIS",
+  "PUNGGOL",
+  "QUEENSTOWN",
+  "SEMBAWANG",
+  "SENGKANG",
+  "SERANGOON",
+  "TAMPINES",
+  "TOA PAYOH",
+  "WOODLANDS",
+  "YISHUN",
+];
 
 const FlatType = [
-    "2 ROOM",
-    "3 ROOM",
-    "4 ROOM",
-    "5 ROOM",
-    "EXECUTIVE",
-    "1 ROOM",
-    "MULTI-GENERATION",
-  ];
+  "2 ROOM",
+  "3 ROOM",
+  "4 ROOM",
+  "5 ROOM",
+  "EXECUTIVE",
+  "1 ROOM",
+  "MULTI-GENERATION",
+];
 
 // const list = ["AMK", "CCK", "BG", "BW"];
 
@@ -176,46 +203,46 @@ const FlatType = [
 
 // <datalist id="countriesDataList"></datalist>
 
-
-
 const StoryRange = [
-    "10 TO 12",
-    "01 TO 03",
-    "04 TO 06",
-    "07 TO 09",
-    "13 TO 15",
-    "19 TO 21",
-    "22 TO 24",
-    "16 TO 18",
-    "34 TO 36",
-    "28 TO 30",
-    "37 TO 39",
-    "49 TO 51",
-    "25 TO 27",
-    "40 TO 42",
-    "31 TO 33",
-    "46 TO 48",
-    "43 TO 45",]
+  "10 TO 12",
+  "01 TO 03",
+  "04 TO 06",
+  "07 TO 09",
+  "13 TO 15",
+  "19 TO 21",
+  "22 TO 24",
+  "16 TO 18",
+  "34 TO 36",
+  "28 TO 30",
+  "37 TO 39",
+  "49 TO 51",
+  "25 TO 27",
+  "40 TO 42",
+  "31 TO 33",
+  "46 TO 48",
+  "43 TO 45",
+];
 
-    const FlatModel = [
-        "Improved",
-        "New Generation",
-        "DBSS",
-        "Standard",
-        "Apartment",
-        "Simplified",
-        "Model A",
-        "Premium Apartment",
-        "Adjoined flat",
-        "Model A-Maisonette",
-        "Maisonette",
-        "Type S1",
-        "Type S2",
-        "Model A2",
-        "Terrace",
-        "Improved-Maisonette",
-        "Premium Maisonette",
-        "Multi Generation",
-        "Premium Apartment Loft",
-        "2-room",
-        "3Gen",]
+const FlatModel = [
+  "Improved",
+  "New Generation",
+  "DBSS",
+  "Standard",
+  "Apartment",
+  "Simplified",
+  "Model A",
+  "Premium Apartment",
+  "Adjoined flat",
+  "Model A-Maisonette",
+  "Maisonette",
+  "Type S1",
+  "Type S2",
+  "Model A2",
+  "Terrace",
+  "Improved-Maisonette",
+  "Premium Maisonette",
+  "Multi Generation",
+  "Premium Apartment Loft",
+  "2-room",
+  "3Gen",
+];

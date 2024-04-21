@@ -2,7 +2,12 @@ import apiHDB from "./api/apiHDB";
 import { useState, useEffect } from "react";
 import { hdbCoord } from "./data/hdbCoord";
 
-export const apiHDBGet = async ({ rowLimit, totalRow, context, setLoading}) => {
+export const apiHDBGet = async ({
+  rowLimit,
+  totalRow,
+  context,
+  setLoading,
+}) => {
   try {
     //First call to check how many rows are there
     const response = await apiHDB.get(``, {
@@ -28,12 +33,11 @@ export const apiHDBGet = async ({ rowLimit, totalRow, context, setLoading}) => {
 
     //Add filter
     const filtersString = "";
-    const filters = context.filters
+    const filters = context.filters;
     filters.map((filter) => {
-      if (filter.key == "address"){
-
+      if (filter.key == "address") {
       }
-    })
+    });
 
     let rowRead = 0;
     while (rowRead < totalRow) {
@@ -43,6 +47,14 @@ export const apiHDBGet = async ({ rowLimit, totalRow, context, setLoading}) => {
             resource_id: "d_8b84c4ee58e3cfc0ece0d773c8ca6abc",
             limit: rowLimit,
             offset: rowRead,
+            filter: {
+              town: context.filters[context.filters.length - 1].town,
+              // flat_type: context.filters[context.filters.length - 1].flat_type,
+              // storey_range:
+              //   context.filters[context.filters.length - 1].storey_range,
+              // flat_model:
+              //   context.filters[context.filters.length - 1].flat_model,
+            },
           },
         })
       );
@@ -70,8 +82,8 @@ export const apiHDBGet = async ({ rowLimit, totalRow, context, setLoading}) => {
 
     //Get unique addresses only and its average price
     const varUniqueAddresses = [];
-    const varBlock = []
-    const varStreetName = []
+    const varBlock = [];
+    const varStreetName = [];
     const varTotalPricePerAddresses = [];
     const varCountPerAddresses = [];
     listOfHdb.map((hdb) => {
@@ -86,7 +98,7 @@ export const apiHDBGet = async ({ rowLimit, totalRow, context, setLoading}) => {
         */
         varUniqueAddresses.push(hdbAddress);
         varBlock.push(hdb.block);
-        varStreetName.push(hdb.street_name)
+        varStreetName.push(hdb.street_name);
         varTotalPricePerAddresses.push(parseFloat(hdb.resale_price));
         varCountPerAddresses.push(1);
       } else {
@@ -96,7 +108,7 @@ export const apiHDBGet = async ({ rowLimit, totalRow, context, setLoading}) => {
       }
     });
 
-    console.log("listofHdb", listOfHdb)
+    console.log("listofHdb", listOfHdb);
 
     //Get avg price
     const varAveragePrices = [];
@@ -139,20 +151,26 @@ export const apiHDBGet = async ({ rowLimit, totalRow, context, setLoading}) => {
   }
 };
 
-export const apiHDBGetSpecificAddress = async ({ rowLimit, totalRow, context, setLoading, params}) => {
+export const apiHDBGetSpecificAddress = async ({
+  rowLimit,
+  totalRow,
+  context,
+  setLoading,
+  params,
+}) => {
   try {
     //Get block and street name
-    const {block, street_name} = params
+    const { block, street_name } = params;
 
-    const filters = `{"block":"${block}", "street_name":"${street_name}"}`
-    console.log("filters", filters)
+    const filters = `{"block":"${block}", "street_name":"${street_name}"}`;
+    console.log("filters", filters);
 
     //First call to check how many rows are there
     const response = await apiHDB.get(``, {
       params: {
         resource_id: "d_8b84c4ee58e3cfc0ece0d773c8ca6abc",
         limit: 1,
-        filters: filters
+        filters: filters,
       },
     });
 
@@ -175,7 +193,7 @@ export const apiHDBGetSpecificAddress = async ({ rowLimit, totalRow, context, se
             resource_id: "d_8b84c4ee58e3cfc0ece0d773c8ca6abc",
             limit: rowLimit,
             offset: rowRead,
-            filters: filters
+            filters: filters,
           },
         })
       );
@@ -201,7 +219,7 @@ export const apiHDBGetSpecificAddress = async ({ rowLimit, totalRow, context, se
       });
     });
 
-    console.log(listOfHdb)
+    console.log(listOfHdb);
 
     context.setResultsAddressChosen(listOfHdb);
 
@@ -212,4 +230,3 @@ export const apiHDBGetSpecificAddress = async ({ rowLimit, totalRow, context, se
     console.log(error.message);
   }
 };
-
