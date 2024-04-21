@@ -1,3 +1,4 @@
+
 import BubbleButton from "../components/BubbleButton";
 import AveragePrice from "../pages/AveragePrice";
 
