@@ -7,25 +7,29 @@ import { data } from "../data/data";
 import AddressList from "./AddressList";
 import "./AveragePrice.css";
 import AddressTable from "./AddressTable";
-import {ClipLoader} from "react-spinners"
-import apiHDBGet from "../helperApi"
+import { ClipLoader } from "react-spinners";
+import {apiHDBGet} from "../helperApi";
 import FilterContext from "../context/FilterContext";
 
 let initialLoad = true;
 
 const AveragePrice = () => {
-  const [addresses, setAddresses] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
-  const rowLimit = 10000
-  const totalRow = 0
-  const context = useContext(FilterContext)
+  const rowLimit = 10000;
+  const totalRow = 0;
+  const context = useContext(FilterContext);
 
   useEffect(() => {
     if (initialLoad) {
-      apiHDBGet({rowLimit, totalRow, context, setLoading});
+      setLoading(true);
+      apiHDBGet({
+        rowLimit: rowLimit,
+        totalRow: totalRow,
+        context: context,
+        setLoading: setLoading,
+      });
       initialLoad = false;
-      
     }
   }, []);
 
@@ -64,7 +68,6 @@ const AveragePrice = () => {
   //       parseInt(varTotalPricePerAddress / varCountPerAddresses[index])
   //     );
   //   });
-    
 
   //   //Get coord of HDB
   //   const listOfHdbWithCoord = varUniqueAddresses.map(
@@ -98,13 +101,9 @@ const AveragePrice = () => {
           <div>AveragePrice</div>
           <div className="table-container">
             <div>
-              {/*{addresses.map((address) => {
-            return <AveragePriceRow address={address}/>
-          })}*/}
-              {console.log(addresses)}
-              <AddressTable className="flex-child"/>
+              <AddressTable className="flex-child" />
             </div>
-            <Map className="flex-child"/>
+            <Map className="flex-child" />
           </div>
         </>
       )}

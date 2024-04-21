@@ -14,20 +14,18 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
-      </header>
+      <header className="App-header"></header>
       <FilterProvider>
-      <BrowserRouter>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Homepage />}></Route>
-          <Route path="Result" element={<Result />}></Route>
-          <Route path="Trend" element={<Trend />}></Route>
-          <Route path="Aboutus" element={<Aboutus />}></Route>
-          <Route path="*" element={<DefaultPage />} />
-        </Routes>
-      </BrowserRouter>
-      <AveragePrice />
+        <BrowserRouter>
+          <Header />
+          <Routes>
+            <Route path="/" element={<Homepage />}></Route>
+            <Route path="result" element={<Result />}></Route>
+            <Route path="trend/:block/:street_name" element={<Trend />}></Route>
+            <Route path="aboutus" element={<Aboutus />}></Route>
+            <Route path="*" element={<DefaultPage />} />
+          </Routes>
+        </BrowserRouter>
       </FilterProvider>
     </div>
   );
