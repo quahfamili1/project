@@ -1,11 +1,17 @@
 .nav {
   overflow: hidden;
-  background-color: #669c2a;
+  background-color: #000000;
 }
 .desktop__nav {
   display: flex;
   justify-content: center;
 }
+
+img.icon {
+  height: 80px;
+  width: 80px;
+}
+
 .nav .list,
 a {
   list-style-type: none;
@@ -44,7 +50,6 @@ a {
     position: relative;
   }
   .nav.responsive .icon {
-    position: absolute;
     right: 0;
     top: 0;
   }
