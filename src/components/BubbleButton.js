@@ -4,12 +4,9 @@ const BubbleButton = (data) => {
   }
 
   return (
-    <div
-      className="bubble-button"
-      role="button"
-      tabIndex={0}
-      onClick={onClick}
-    ></div>
+    <div className="bubble-button" role="button" tabIndex={0} onClick={onClick}>
+      
+    </div>
   );
 };
 

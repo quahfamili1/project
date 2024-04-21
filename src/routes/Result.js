@@ -1,4 +1,5 @@
 import BubbleButton from "../components/BubbleButton";
+import AveragePrice from "../pages/AveragePrice";
 
 function Result() {
   const handleData = () => {
@@ -9,6 +10,7 @@ function Result() {
     <>
       <div>This is the result page</div>
       <BubbleButton value="data" />
+      <AveragePrice/>
     </>
   );
 }

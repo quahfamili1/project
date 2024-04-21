@@ -1,23 +1,31 @@
-import { createContext } from "react";
+import { createContext, useState } from "react";
 const FilterContext = createContext();
 
-export function ProductProvider({ children }) {
-  const setFilter = () => {};
-
-  const setResult = () => {};
-
-  const filter = [];
-  const results = [];
+export function FilterProvider({ children }) {
+  
+  const [filters, setFilters] = useState([]);
+  const [results, setResults] = useState([]);
+  const [blockChosen, setBlockChosen]  = useState("")
+  const [streetNameChosen, setStreetNameChosen]  = useState("")
+  const [resultsAddressChosen, setResultsAddressChosen]  = useState("")
 
   const context = {
-    filter,
+    filters,
     results,
-    setFilter,
-    setResult,
+    blockChosen,
+    streetNameChosen,
+    resultsAddressChosen,
+    setFilters,
+    setResults,
+    setBlockChosen,
+    setStreetNameChosen,
+    setResultsAddressChosen,
   };
 
   return (
-    <FilterContext.Provider value={context}>{children}</FilterContext.Provider>
+    <FilterContext.Provider value={context}>
+      {children}
+    </FilterContext.Provider>
   );
 }
 
