@@ -1,10 +1,32 @@
-function Dropbox() {
+import React, { useContext, useState } from 'react'
+import FilterContext from "../context/FilterContext";
+import Button from './SubmitButton';
+import { useNavigate } from "react-router-dom";
 
+function Dropbox() {
+    const context = useContext(FilterContext)
+    const addresses = context.results
+    const navigate = useNavigate();
+    const handleFilters = () => {
+        const newFilter = {
+            // month: ctx.name,
+            // town: ctx.count,
+            // flat_type: ctx.price,
+            // storey_range: ctx.discount,
+            // floor_area_sqm:ctx.name,
+            // flat_model: ctx.count * ctx.price * (100-ctx.discount)/100,
+            // remaining_lease: ctx.name,
+            // resale_price:ctx.name,
+        };
+        const filterHistory = [...context.filters, newFilter];
+        context.setFilters(filterHistory);
+        navigate (`/result`);
+    }
   return (
     <>
          <select
         onChange={(e) => {
-          console.log(e.target.value);
+          console.log(addresses);
         }}
       >
         {Town.map((a) => {
@@ -22,6 +44,26 @@ function Dropbox() {
         })}
       </select>
       
+      <br></br>
+
+       <select
+        onChange={(e) => {
+          console.log(e.target.value);
+        }}
+      >
+        {StoryRange.map((a) => {
+          return (<option key={a} value={a}>{a}</option>);
+        })}
+      </select>
+      <select
+        onChange={(e) => {
+          console.log(e.target.value);
+        }}
+      >
+        {FlatModel.map((a) => {
+          return (<option key={a} value={a}>{a}</option>);
+        })}
+      </select>
 
       <br></br>
       <select>
@@ -42,16 +84,7 @@ function Dropbox() {
         <option value="saab">Saab</option>
       </select>
       <br></br>
-      <select>
-        <option value="volvo">Volvo</option>
-        <option value="saab">Saab</option>
-      </select>
-      <select>
-        <option value="volvo">Volvo</option>
-        <option value="saab">Saab</option>
-      </select>
-      <br></br>
-      <button>Search</button>
+      <Button label="Submit" onClick={handleFilters}/>
     </>
   );
 }
@@ -145,44 +178,44 @@ const FlatType = [
 
 
 
-//Story Range
-// 10 TO 12
-// 01 TO 03
-// 04 TO 06
-// 07 TO 09
-// 13 TO 15
-// 19 TO 21
-// 22 TO 24
-// 16 TO 18
-// 34 TO 36
-// 28 TO 30
-// 37 TO 39
-// 49 TO 51
-// 25 TO 27
-// 40 TO 42
-// 31 TO 33
-// 46 TO 48
-// 43 TO 45
+const StoryRange = [
+    "10 TO 12",
+    "01 TO 03",
+    "04 TO 06",
+    "07 TO 09",
+    "13 TO 15",
+    "19 TO 21",
+    "22 TO 24",
+    "16 TO 18",
+    "34 TO 36",
+    "28 TO 30",
+    "37 TO 39",
+    "49 TO 51",
+    "25 TO 27",
+    "40 TO 42",
+    "31 TO 33",
+    "46 TO 48",
+    "43 TO 45",]
 
-//Flat Model
-// Improved
-// New Generation
-// DBSS
-// Standard
-// Apartment
-// Simplified
-// Model A
-// Premium Apartment
-// Adjoined flat
-// Model A-Maisonette
-// Maisonette
-// Type S1
-// Type S2
-// Model A2
-// Terrace
-// Improved-Maisonette
-// Premium Maisonette
-// Multi Generation
-// Premium Apartment Loft
-// 2-room
-// 3Gen
+    const FlatModel = [
+        "Improved",
+        "New Generation",
+        "DBSS",
+        "Standard",
+        "Apartment",
+        "Simplified",
+        "Model A",
+        "Premium Apartment",
+        "Adjoined flat",
+        "Model A-Maisonette",
+        "Maisonette",
+        "Type S1",
+        "Type S2",
+        "Model A2",
+        "Terrace",
+        "Improved-Maisonette",
+        "Premium Maisonette",
+        "Multi Generation",
+        "Premium Apartment Loft",
+        "2-room",
+        "3Gen",]
