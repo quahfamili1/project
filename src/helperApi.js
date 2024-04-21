@@ -9,11 +9,24 @@ export const apiHDBGet = async ({
   setLoading,
 }) => {
   try {
+    const { town, flat_type, storey_range, flat_model } =
+      context.filters[context.filters.length - 1];
+    let filter =
+      "{" +
+      (town != "" ? '"town": "' + town + '",' : "") +
+      (flat_type != "" ? '"flat_type": "' + flat_type + '",' : "") +
+      (storey_range != "" ? '"storey_range": "' + storey_range + '",' : "") +
+      (flat_model != "" ? '"flat_model": "' + flat_model + '",' : "");
+    filter = filter.slice(0, -1) + "}";
+
+    console.log(filter);
+
     //First call to check how many rows are there
     const response = await apiHDB.get(``, {
       params: {
         resource_id: "d_8b84c4ee58e3cfc0ece0d773c8ca6abc",
-        limit: 1,
+        // limit: 1,
+        filters: filter,
       },
     });
 
@@ -22,7 +35,7 @@ export const apiHDBGet = async ({
     console.log("totalRow", totalRow);
 
     //To delete later
-    totalRow = 15;
+    // totalRow = 15;
 
     //Set rowLimit if totalRow < rowLimit
     if (totalRow < rowLimit) {
@@ -47,14 +60,7 @@ export const apiHDBGet = async ({
             resource_id: "d_8b84c4ee58e3cfc0ece0d773c8ca6abc",
             limit: rowLimit,
             offset: rowRead,
-            filter: {
-              town: context.filters[context.filters.length - 1].town,
-              // flat_type: context.filters[context.filters.length - 1].flat_type,
-              // storey_range:
-              //   context.filters[context.filters.length - 1].storey_range,
-              // flat_model:
-              //   context.filters[context.filters.length - 1].flat_model,
-            },
+            filters: filter,
           },
         })
       );
