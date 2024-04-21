@@ -17,9 +17,7 @@ const Map = () => {
   
   //const map = useMap();
   const context = useContext(FilterContext)
-  console.log("context in map", context)
   const addresses = context.results
-  console.log("addresses in map", context.results)
 
   const createCustomClusterIcon = (cluster) => {
     const allChildMarkers = cluster.getAllChildMarkers();
