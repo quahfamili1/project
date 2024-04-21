@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styles from "./Header.module.css";
 import { Link } from "react-router-dom";
+import icon from "../assets/icon.png";
 
 const Header = () => {
   const [clicked, setClicked] = useState(false);
@@ -12,7 +13,7 @@ const Header = () => {
           : `${styles.nav} ${styles.desktop__nav}`
       }
     >
-      <h1>logo</h1>
+      <img className={styles.icon} src={icon}></img>
       <ul>
         <Link to="/" className={styles.list}>
           <li>Home</li>
