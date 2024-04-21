@@ -1,10 +1,4 @@
-<<<<<<< HEAD
 
-
-function Result() {
-  return <><div>This is the result page</div>
-  </>;
-=======
 import BubbleButton from "../components/BubbleButton";
 import AveragePrice from "../pages/AveragePrice";
 
@@ -20,6 +14,5 @@ function Result() {
       <AveragePrice/>
     </>
   );
->>>>>>> main
 }
 export default Result;

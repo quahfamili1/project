@@ -1,56 +1,99 @@
-function Dropbox(){
-  
-  const FlatType = [
-    '2 ROOM',
-    '3 ROOM',
-    '4 ROOM',
-    '5 ROOM',
-    'EXECUTIVE',
-    '1 ROOM',
-    'MULTI-GENERATION'
-    ]
+function Dropbox() {
 
   return (
-  <>
-  <select>
-      {FlatType.map (=> { return <option value="volvo">Volvo</option>;})
-      }
-  </select>
-  <select>
-      <option value="volvo">Volvo</option>
-      <option value="saab">Saab</option>
-  </select><br></br>
-  <select>
-      <option value="volvo">Volvo</option>
-      <option value="saab">Saab</option>
-  </select>
-  <select>
-      <option value="volvo">Volvo</option>
-      <option value="saab">Saab</option>
-  </select><br></br>
-  <select>
-      <option value="volvo">Volvo</option>
-      <option value="saab">Saab</option>
-  </select>
-  <select>
-      <option value="volvo">Volvo</option>
-      <option value="saab">Saab</option>
-  </select><br></br>
-  <select>
-      <option value="volvo">Volvo</option>
-      <option value="saab">Saab</option>
-  </select>
-  <select>
-      <option value="volvo">Volvo</option>
-      <option value="saab">Saab</option>
-  </select><br></br>
-  <button>Search
-  </button>
-  </>);
-  }
-  export default Dropbox;
+    <>
+         <select
+        onChange={(e) => {
+          console.log(e.target.value);
+        }}
+      >
+        {Town.map((a) => {
+          return (<option key={a} value={a}>{a}</option>);
+        })}
+      </select>
+      
+      <select
+        onChange={(e) => {
+          console.log(e.target.value);
+        }}
+      >
+        {FlatType.map((a) => {
+          return (<option key={a} value={a}>{a}</option>);
+        })}
+      </select>
+      
 
+      <br></br>
+      <select>
+        <option value="volvo">Volvo</option>
+        <option value="saab">Saab</option>
+      </select>
+      <select>
+        <option value="volvo">Volvo</option>
+        <option value="saab">Saab</option>
+      </select>
+      <br></br>
+      <select>
+        <option value="volvo">Volvo</option>
+        <option value="saab">Saab</option>
+      </select>
+      <select>
+        <option value="volvo">Volvo</option>
+        <option value="saab">Saab</option>
+      </select>
+      <br></br>
+      <select>
+        <option value="volvo">Volvo</option>
+        <option value="saab">Saab</option>
+      </select>
+      <select>
+        <option value="volvo">Volvo</option>
+        <option value="saab">Saab</option>
+      </select>
+      <br></br>
+      <button>Search</button>
+    </>
+  );
+}
+export default Dropbox;
 
+const Town = [
+"ANG MO KIO",
+"BEDOK",
+"BISHAN",
+"BUKIT BATOK",
+"BUKIT MERAH",
+"BUKIT PANJANG",
+"BUKIT TIMAH",
+"CENTRAL AREA",
+"CHOA CHU KANG",
+"CLEMENTI",
+"GEYLANG",
+"HOUGANG",
+"JURONG EAST",
+"JURONG WEST",
+"KALLANG/WHAMPOA",
+"MARINE PARADE",
+"PASIR RIS",
+"PUNGGOL",
+"QUEENSTOWN",
+"SEMBAWANG",
+"SENGKANG",
+"SERANGOON",
+"TAMPINES",
+"TOA PAYOH",
+"WOODLANDS",
+"YISHUN"]
+
+const FlatType = [
+    "2 ROOM",
+    "3 ROOM",
+    "4 ROOM",
+    "5 ROOM",
+    "EXECUTIVE",
+    "1 ROOM",
+    "MULTI-GENERATION",
+  ];
 
 // const list = ["AMK", "CCK", "BG", "BW"];
 
@@ -66,7 +109,6 @@ function Dropbox(){
 //   );
 // }
 // export default dropbox;
-
 
 // "month": "2017-12",  <= range
 // "town": "SEMBAWANG", <= list selection
@@ -100,35 +142,6 @@ function Dropbox(){
 // <input type="text" list="countriesDataList" id="countryInput" />
 
 // <datalist id="countriesDataList"></datalist>
-
-//Town
-
-// ANG MO KIO
-// BEDOK
-// BISHAN
-// BUKIT BATOK
-// BUKIT MERAH
-// BUKIT PANJANG
-// BUKIT TIMAH
-// CENTRAL AREA
-// CHOA CHU KANG
-// CLEMENTI
-// GEYLANG
-// HOUGANG
-// JURONG EAST
-// JURONG WEST
-// KALLANG/WHAMPOA
-// MARINE PARADE
-// PASIR RIS
-// PUNGGOL
-// QUEENSTOWN
-// SEMBAWANG
-// SENGKANG
-// SERANGOON
-// TAMPINES
-// TOA PAYOH
-// WOODLANDS
-// YISHUN
 
 
 
