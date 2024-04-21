@@ -11,7 +11,6 @@ import { ClipLoader } from "react-spinners";
 import {apiHDBGet} from "../helperApi";
 import FilterContext from "../context/FilterContext";
 
-let initialLoad = true;
 
 const AveragePrice = () => {
   const [loading, setLoading] = useState(false);
@@ -21,7 +20,6 @@ const AveragePrice = () => {
   const context = useContext(FilterContext);
 
   useEffect(() => {
-    if (initialLoad) {
       setLoading(true);
       apiHDBGet({
         rowLimit: rowLimit,
@@ -29,8 +27,7 @@ const AveragePrice = () => {
         context: context,
         setLoading: setLoading,
       });
-      initialLoad = false;
-    }
+    
   }, []);
 
   // const apiHDBGet = () => {

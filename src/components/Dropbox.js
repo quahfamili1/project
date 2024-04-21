@@ -8,11 +8,18 @@ function Dropbox() {
   // const addresses = context.results;
   const navigate = useNavigate();
 
+  const [selectedTown, setSelectedTown] = useState(Town[1]);
+  const [selectedFlatType, setSelectedFlatType] = useState(FlatType[1]);
+  const [selectedStoryRange, setSelectedStoryRange] = useState(StoryRange[1]);
+  const [selectedFlatModel, setSelectedFlatModel] = useState(FlatModel[1]);
+
+  /*
   //add variable for selected filter
   let selectedTown = "",
     selectedFlatType = "",
     selectedStoryRange = "",
     selectedFlatModel = "";
+    */
 
   const handleFilters = () => {
     const newFilter = {
@@ -35,8 +42,9 @@ function Dropbox() {
   return (
     <>
       <select
+        value={selectedTown}
         onChange={(e) => {
-          selectedTown = e.target.value;
+          setSelectedTown(e.target.value);
         }}
       >
         {Town.map((a) => {
@@ -49,8 +57,9 @@ function Dropbox() {
       </select>
 
       <select
+        value={selectedFlatType}
         onChange={(e) => {
-          selectedFlatType = e.target.value;
+          setSelectedFlatType(e.target.value);
         }}
       >
         {FlatType.map((a) => {
@@ -65,8 +74,9 @@ function Dropbox() {
       <br></br>
 
       <select
+        value={selectedStoryRange}
         onChange={(e) => {
-          selectedStoryRange = e.target.value;
+          setSelectedStoryRange(e.target.value);
         }}
       >
         {StoryRange.map((a) => {
@@ -78,8 +88,9 @@ function Dropbox() {
         })}
       </select>
       <select
+        value={selectedFlatModel}
         onChange={(e) => {
-          selectedFlatModel = e.target.value;
+          setSelectedFlatModel(e.target.value);
         }}
       >
         {FlatModel.map((a) => {
@@ -117,6 +128,7 @@ function Dropbox() {
 export default Dropbox;
 
 const Town = [
+  "All",
   "ANG MO KIO",
   "BEDOK",
   "BISHAN",
@@ -146,6 +158,7 @@ const Town = [
 ];
 
 const FlatType = [
+  "All",
   "2 ROOM",
   "3 ROOM",
   "4 ROOM",
@@ -204,6 +217,7 @@ const FlatType = [
 // <datalist id="countriesDataList"></datalist>
 
 const StoryRange = [
+  "All",
   "10 TO 12",
   "01 TO 03",
   "04 TO 06",
@@ -224,6 +238,7 @@ const StoryRange = [
 ];
 
 const FlatModel = [
+  "All",
   "Improved",
   "New Generation",
   "DBSS",

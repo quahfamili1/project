@@ -11,13 +11,32 @@ export const apiHDBGet = async ({
   try {
     const { town, flat_type, storey_range, flat_model } =
       context.filters[context.filters.length - 1];
+
     let filter =
       "{" +
-      (town != "" ? '"town": "' + town + '",' : "") +
-      (flat_type != "" ? '"flat_type": "' + flat_type + '",' : "") +
-      (storey_range != "" ? '"storey_range": "' + storey_range + '",' : "") +
-      (flat_model != "" ? '"flat_model": "' + flat_model + '",' : "");
-    filter = filter.slice(0, -1) + "}";
+      (town != "All" ? '"town": "' + town + '",' : "") +
+      (flat_type != "All" ? '"flat_type": "' + flat_type + '",' : "") +
+      (storey_range != "All" ? '"storey_range": "' + storey_range + '",' : "") +
+      (flat_model != "All" ? '"flat_model": "' + flat_model + '",' : "");
+
+    if (filter[filter.length - 1] == ",") {
+      filter = filter.slice(0, -1);
+    }
+
+    filter += "}"
+
+    /*
+    let filter = "{"
+
+    if (town != "All"){filter += `"town": "${town}",`}
+    if (flat_type != "All"){filter += `"flat_type": "${flat_type}",`}
+    if (storey_range != "All"){filter += `"storey_range": "${storey_range}",`}
+    if (flat_model != "All"){filter += `"flat_model": "${flat_model}",`}
+
+    if (filter[filter.length - 1] == ",") {filter = filter.slice(0, -1);}
+
+    filter += "}"
+    */
 
     console.log(filter);
 
