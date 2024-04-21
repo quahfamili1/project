@@ -1,13 +1,12 @@
-import React, { useState, useMemo, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useContext, useState } from 'react'
 
-import "./AddressTable.css";
+import "./PrevTransactionsTable.css";
 import FilterContext from "../context/FilterContext";
+import { useNavigate } from 'react-router-dom';
 
-const AddressTable = () => {
-
+const PrevTransactionsTable = () => {
   const context = useContext(FilterContext)
-  const addresses = context.results
+  const addresses = context.resultsAddressChosen
 
   const [currentPage, setCurrentPage] = useState(1);
   const recordsPerPage = 20;
@@ -17,8 +16,7 @@ const AddressTable = () => {
   const npage = Math.ceil(addresses.length / recordsPerPage);
   const numbers = [...Array(npage + 1).keys()].slice(1);
 
-  const navigate = useNavigate();
-
+  console.log("records", records)
 
   const prevPage = () => {
 
@@ -32,11 +30,6 @@ const AddressTable = () => {
     
   }
 
-  const handlerShowPrevTransactions = (address) => {
-    const {block, street_name} = address
-    navigate(`../trend/${block}/${street_name}`)
-    
-  }
 
   return (
     <>
@@ -44,20 +37,19 @@ const AddressTable = () => {
         <thead>
           <tr>
             <th>No</th>
-            <th>Address</th>
-            <th>Average Price (SGD)</th>
-            <th>Show Map</th>
-            <th>Show Previous Transactions</th>
+            <th>Month</th>
+            <th>Flat Type</th>
+            <th>Resale Price (SGD)</th>
           </tr>
         </thead>
+        
         <tbody>
-          {records.map((address, i) => (
+          {records.map((record, i) => (
             <tr key={i}>
               <td>{i + 1}</td>
-              <td>{address.address}</td>
-              <td>{address.avg_price}</td>
-              <td>{<button>Show on map</button>}</td>
-              <td>{<button onClick={() => handlerShowPrevTransactions(address)}>Show previous transactions</button>}</td>
+              <td>{record.month}</td>
+              <td>{record.flat_type}</td>
+              <td>{record.resale_price}</td>
             </tr>
           ))}
         </tbody>
@@ -78,6 +70,6 @@ const AddressTable = () => {
       </nav>
     </>
   );
-};
+}
 
-export default AddressTable;
+export default PrevTransactionsTable
