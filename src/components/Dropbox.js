@@ -36,7 +36,7 @@ function Dropbox() {
     const filterHistory = [...context.filters, newFilter];
     context.setFilters(filterHistory);
     console.log(filterHistory);
-
+    context.setIsFiltered(true);
     navigate(`/result`);
   };
   return (

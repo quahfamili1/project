@@ -5,11 +5,10 @@ import "./AddressTable.css";
 import FilterContext from "../context/FilterContext";
 
 const AddressTable = () => {
+  const context = useContext(FilterContext);
+  const addresses = context.results;
 
-  const context = useContext(FilterContext)
-  const addresses = context.results
-
-  const [goToPage, setGoToPage] = useState(1)
+  const [goToPage, setGoToPage] = useState(1);
 
   const [currentPage, setCurrentPage] = useState(1);
   const recordsPerPage = 20;
@@ -22,40 +21,38 @@ const AddressTable = () => {
   const navigate = useNavigate();
 
   const prevPage = (e) => {
-    e.preventDefault()
-    if (currentPage > 1){
-      setCurrentPage(prevPage => parseInt(prevPage) - 1)
+    e.preventDefault();
+    if (currentPage > 1) {
+      setCurrentPage((prevPage) => parseInt(prevPage) - 1);
     }
-
-  }
+  };
 
   const nextPage = (e) => {
-    e.preventDefault()
-    if (currentPage  < npage){
-      setCurrentPage(prevPage => parseInt(prevPage) + 1)
+    e.preventDefault();
+    if (currentPage < npage) {
+      setCurrentPage((prevPage) => parseInt(prevPage) + 1);
     }
-    
-  }
+  };
 
   const handleGoToPage = (e) => {
-    if (e.target.value == ""){
-      setGoToPage(e.target.value)
+    if (e.target.value == "") {
+      setGoToPage(e.target.value);
     }
-    if (e.target.value >= 1 && e.target.value <= npage){
-      setGoToPage(e.target.value)
-      setCurrentPage(e.target.value)
+    if (e.target.value >= 1 && e.target.value <= npage) {
+      setGoToPage(e.target.value);
+      setCurrentPage(e.target.value);
     }
-  }
+  };
 
   const handlerShowPrevTransactions = (address) => {
-    const {block, street_name} = address
-    navigate(`../trend/${block}/${street_name}`)
-    
-  }
+    const { block, street_name } = address;
+    context.setIsSelected(true);
+    navigate(`../trend/${block}/${street_name}`);
+  };
 
   return (
     <>
-    <h3>No of records: {addresses.length}</h3>
+      <h3>No of records: {addresses.length}</h3>
       <table className="table">
         <thead>
           <tr>
@@ -73,19 +70,27 @@ const AddressTable = () => {
               <td>{address.address}</td>
               <td>{address.avg_price}</td>
               <td>{<button>Show on map</button>}</td>
-              <td>{<button onClick={() => handlerShowPrevTransactions(address)}>Show previous transactions</button>}</td>
+              <td>
+                {
+                  <button onClick={() => handlerShowPrevTransactions(address)}>
+                    Show previous transactions
+                  </button>
+                }
+              </td>
             </tr>
           ))}
         </tbody>
       </table>
       <nav>
-          <button onClick={(e)=>prevPage(e)}>Prev</button>
-          <button onClick={(e)=>nextPage(e)}>Next</button>
-          <div>Curent page: {currentPage}/{npage}
-          </div>
-          <div>Go to page: 
-            <input value={goToPage} onChange={(e)=>handleGoToPage(e)}/>
-          </div>
+        <button onClick={(e) => prevPage(e)}>Prev</button>
+        <button onClick={(e) => nextPage(e)}>Next</button>
+        <div>
+          Curent page: {currentPage}/{npage}
+        </div>
+        <div>
+          Go to page:
+          <input value={goToPage} onChange={(e) => handleGoToPage(e)} />
+        </div>
       </nav>
     </>
   );
