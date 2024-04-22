@@ -8,11 +8,12 @@ import AddressList from "./AddressList";
 import "./AveragePrice.css";
 import AddressTable from "./AddressTable";
 import { ClipLoader } from "react-spinners";
-import {apiHDBGet} from "../helperApi";
+import { apiHDBGet } from "../helperApi";
 import FilterContext from "../context/FilterContext";
 
-
 const AveragePrice = () => {
+  let initialLoad = true;
+
   const [loading, setLoading] = useState(false);
 
   const rowLimit = 10000;
@@ -20,6 +21,7 @@ const AveragePrice = () => {
   const context = useContext(FilterContext);
 
   useEffect(() => {
+    if (initialLoad) {
       setLoading(true);
       apiHDBGet({
         rowLimit: rowLimit,
@@ -27,7 +29,8 @@ const AveragePrice = () => {
         context: context,
         setLoading: setLoading,
       });
-    
+      initialLoad = false;
+    }
   }, []);
 
   // const apiHDBGet = () => {
