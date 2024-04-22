@@ -9,6 +9,8 @@ const AddressTable = () => {
   const context = useContext(FilterContext)
   const addresses = context.results
 
+  const [goToPage, setGoToPage] = useState(1)
+
   const [currentPage, setCurrentPage] = useState(1);
   const recordsPerPage = 20;
   const lastIndex = currentPage * recordsPerPage;
@@ -19,17 +21,30 @@ const AddressTable = () => {
 
   const navigate = useNavigate();
 
-
-  const prevPage = () => {
+  const prevPage = (e) => {
+    e.preventDefault()
+    if (currentPage > 1){
+      setCurrentPage(prevPage => parseInt(prevPage) - 1)
+    }
 
   }
 
-  const nextPage = () => {
+  const nextPage = (e) => {
+    e.preventDefault()
+    if (currentPage  < npage){
+      setCurrentPage(prevPage => parseInt(prevPage) + 1)
+    }
     
   }
 
-  const changeCurrentPage = () => {
-    
+  const handleGoToPage = (e) => {
+    if (e.target.value == ""){
+      setGoToPage(e.target.value)
+    }
+    if (e.target.value >= 1 && e.target.value <= npage){
+      setGoToPage(e.target.value)
+      setCurrentPage(e.target.value)
+    }
   }
 
   const handlerShowPrevTransactions = (address) => {
@@ -40,6 +55,7 @@ const AddressTable = () => {
 
   return (
     <>
+    <h3>No of records: {addresses.length}</h3>
       <table className="table">
         <thead>
           <tr>
@@ -53,7 +69,7 @@ const AddressTable = () => {
         <tbody>
           {records.map((address, i) => (
             <tr key={i}>
-              <td>{i + 1}</td>
+              <td>{(currentPage - 1) * recordsPerPage + i + 1}</td>
               <td>{address.address}</td>
               <td>{address.avg_price}</td>
               <td>{<button>Show on map</button>}</td>
@@ -63,18 +79,13 @@ const AddressTable = () => {
         </tbody>
       </table>
       <nav>
-        <ul>
-          <li><a href='#' onClick={prevPage}>Prev</a></li>
-          {numbers.map((number, i) => (
-            <li>
-                <a href="#" onClick={changeCurrentPage}>{number}</a>
-
-            </li>
-
-          ))}
-          <li><a href='#' onClick={nextPage}>Next</a></li>
-
-        </ul>
+          <button onClick={(e)=>prevPage(e)}>Prev</button>
+          <button onClick={(e)=>nextPage(e)}>Next</button>
+          <div>Curent page: {currentPage}/{npage}
+          </div>
+          <div>Go to page: 
+            <input value={goToPage} onChange={(e)=>handleGoToPage(e)}/>
+          </div>
       </nav>
     </>
   );
