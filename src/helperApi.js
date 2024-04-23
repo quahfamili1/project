@@ -1,6 +1,7 @@
 import apiHDB from "./api/apiHDB";
 import { useState, useEffect } from "react";
 import { hdbCoord } from "./data/hdbCoord";
+import FilterContext from "./context/FilterContext";
 
 export const apiHDBGet = async ({
   rowLimit,
@@ -9,8 +10,12 @@ export const apiHDBGet = async ({
   setLoading,
 }) => {
   try {
+    console.log("selected: " + context.selected);
+    console.log("latest: " + context.filters.length - 1);
     const { town, flat_type, storey_range, flat_model } =
-      context.filters[context.filters.length - 1];
+      context.selected < context.filters.length
+        ? context.filters[context.selected]
+        : context.filters[context.filters.length - 1];
 
     let filter =
       "{" +
@@ -23,7 +28,7 @@ export const apiHDBGet = async ({
       filter = filter.slice(0, -1);
     }
 
-    filter += "}"
+    filter += "}";
 
     /*
     let filter = "{"
