@@ -2,7 +2,11 @@ import React, { useContext, useState } from "react";
 import FilterContext from "../context/FilterContext";
 import Button from "./SubmitButton";
 import { useNavigate } from "react-router-dom";
-
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import RangeSlider from 'react-range-slider-input';
+import 'react-range-slider-input/dist/style.css';
+import MinMax from "./MinMaxCounter";
 function Dropbox() {
   const context = useContext(FilterContext);
   // const addresses = context.results;
@@ -12,6 +16,12 @@ function Dropbox() {
   const [selectedFlatType, setSelectedFlatType] = useState(FlatType[1]);
   const [selectedStoryRange, setSelectedStoryRange] = useState(StoryRange[1]);
   const [selectedFlatModel, setSelectedFlatModel] = useState(FlatModel[1]);
+  const [selectedDateRange, setselectedDateRange] = useState([null, null]);
+  const [startDate, endDate] = selectedDateRange;
+  const [selectedLeaseDate, setselectedLeaseDate] = useState([null, null]);
+  const [leaseStartDate, leaseEndDate] = selectedLeaseDate;
+  const [selectedSQMRange, setSelectedSQMRange] = useState([0,300]);
+  const [selectedResaleP, setSelectedResaleP] = useState([0,2000000]);
 
   /*
   //add variable for selected filter
@@ -23,14 +33,14 @@ function Dropbox() {
 
   const handleFilters = () => {
     const newFilter = {
-      // month: ctx.name,
+      month: selectedDateRange,
       town: selectedTown,
       flat_type: selectedFlatType,
       storey_range: selectedStoryRange,
-      // floor_area_sqm:ctx.name,
+      floor_area_sqm:selectedSQMRange,
       flat_model: selectedFlatModel,
-      // remaining_lease: ctx.name,
-      // resale_price:ctx.name,
+      lease_commence_date: selectedLeaseDate,
+      resale_price:selectedResaleP,
     };
 
     const filterHistory = [...context.filters, newFilter];
@@ -38,9 +48,35 @@ function Dropbox() {
     console.log(filterHistory);
     context.setIsFiltered(true);
     navigate(`/result`);
+
   };
   return (
     <>
+      <DatePicker
+  dateFormat="MMM YY"
+  showMonthYearPicker
+  selectsRange={true}
+  startDate={startDate}
+  endDate={endDate}
+  onChange={(update) => {
+    setselectedDateRange(update);
+  }}
+  isClearable={true}
+  placeholderText='Select Resale Date Range'
+/>
+<DatePicker
+  dateFormat="YYYY"
+  showYearPicker
+  selectsRange={true}
+  startDate={leaseStartDate}
+  endDate={leaseEndDate}
+  onChange={(update) => {
+    setselectedLeaseDate(update);
+  }}
+  isClearable={true}
+  placeholderText='Select Lease Start Date'
+/>
+<br></br>
       <select
         value={selectedTown}
         onChange={(e) => {
@@ -101,25 +137,30 @@ function Dropbox() {
           );
         })}
       </select>
-
       <br></br>
-      <select>
-        <option value="volvo">Volvo</option>
-        <option value="saab">Saab</option>
-      </select>
-      <select>
-        <option value="volvo">Volvo</option>
-        <option value="saab">Saab</option>
-      </select>
+      <label>Floor Area SQM</label>
       <br></br>
-      <select>
-        <option value="volvo">Volvo</option>
-        <option value="saab">Saab</option>
-      </select>
-      <select>
-        <option value="volvo">Volvo</option>
-        <option value="saab">Saab</option>
-      </select>
+      <MinMax prop={selectedSQMRange}/>
+        <RangeSlider
+        min={0}
+        max= {300}
+        defaultValue={[0,300]}
+        value={selectedSQMRange} 
+        onInput={setSelectedSQMRange}
+        />
+      <br></br>
+      <br></br>
+      <label>Resale Price</label>
+      <br></br>
+      <MinMax prop={selectedResaleP}/>
+        <RangeSlider
+        min={0}
+        max= {2000000}
+        defaultValue={[0,2000000]}
+        value={selectedResaleP} 
+        onInput={setSelectedResaleP}
+        step ={10000}
+        />
       <br></br>
       <Button label="Submit" onClick={handleFilters} />
     </>
