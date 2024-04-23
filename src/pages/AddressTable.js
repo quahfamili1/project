@@ -50,6 +50,14 @@ const AddressTable = () => {
     navigate(`../trend/${block}/${street_name}`);
   };
 
+  const handlerShowOnMap = (address) => {
+    console.log("map", context.map)
+    console.log("Address", address)
+    const { lat, lon } = address;
+    console.log(lat, lon)
+    context.map.flyTo([lat, lon], 18)
+  };
+
   return (
     <>
       <h3>No of records: {addresses.length}</h3>
@@ -69,7 +77,7 @@ const AddressTable = () => {
               <td>{(currentPage - 1) * recordsPerPage + i + 1}</td>
               <td>{address.address}</td>
               <td>{address.avg_price}</td>
-              <td>{<button>Show on map</button>}</td>
+              <td>{<button onClick={() => handlerShowOnMap(address)}>Show on map</button>}</td>
               <td>
                 {
                   <button onClick={() => handlerShowPrevTransactions(address)}>

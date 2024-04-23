@@ -9,7 +9,6 @@ import "./AveragePrice.css";
 import AddressTable from "./AddressTable";
 import { ClipLoader } from "react-spinners";
 import { apiHDBGet } from "../helperApi";
-import { apiHDBGet } from "../helperApi";
 import FilterContext from "../context/FilterContext";
 
 const AveragePrice = () => {
