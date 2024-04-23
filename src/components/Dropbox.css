@@ -1,0 +1,81 @@
+/* Style for the container of inputs */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* Style for each input element */
+input[type="text"] {
+  min-width: 380px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+input[type="range"] {
+  min-width: 380px;
+  margin-bottom: 10px;
+}
+
+select {
+  min-width: 400px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+/* Style for the date picker inputs */
+.react-datepicker-wrapper {
+  min-width: 400px;
+}
+
+.range-slider {
+  width: 400px;
+  border: none;
+}
+
+div.slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 80px;
+}
+
+/* Style for the button */
+button {
+  width: 80%;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Hover effect for inputs */
+input:hover,
+select:hover {
+  border-color: #007bff;
+}
+
+/* Focus effect for inputs */
+input:focus,
+select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Media query for responsiveness */
+@media screen and (max-width: 768px) {
+  input,
+  select,
+  label {
+    width: 100%;
+  }
+}
