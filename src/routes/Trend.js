@@ -8,6 +8,8 @@ import { ClipLoader } from "react-spinners";
 
 
 function Trend() {
+  let initialLoad = true;
+
   const [loading, setLoading] = useState(true);
 
   const rowLimit = 10000;
@@ -17,6 +19,7 @@ function Trend() {
   const params = useParams()
 
   useEffect(() => {
+    if(initialLoad){
       setLoading(true);
       apiHDBGetSpecificAddress({
         rowLimit: rowLimit,
@@ -25,12 +28,12 @@ function Trend() {
         setLoading: setLoading,
         params: params
       });
+      initialLoad = false;
+    }
+
 
   }, []);
 
-  
-
-  
   return (
     <>
             {loading ? (

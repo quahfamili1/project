@@ -10,6 +10,7 @@ export function FilterProvider({ children }) {
   const [blockChosen, setBlockChosen] = useState("");
   const [streetNameChosen, setStreetNameChosen] = useState("");
   const [resultsAddressChosen, setResultsAddressChosen] = useState("");
+  const [map, setMap] = useState()
 
   const context = {
     filters,
@@ -20,6 +21,7 @@ export function FilterProvider({ children }) {
     streetNameChosen,
     resultsAddressChosen,
     selected,
+    map,
     setSelected,
     setFilters,
     setIsFiltered,
@@ -28,6 +30,7 @@ export function FilterProvider({ children }) {
     setBlockChosen,
     setStreetNameChosen,
     setResultsAddressChosen,
+    setMap,
   };
 
   return (

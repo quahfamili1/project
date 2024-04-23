@@ -9,6 +9,7 @@ import "leaflet/dist/leaflet.css";
 import MarkerClusterGroup from "react-leaflet-cluster";
 import { Icon } from "leaflet";
 //import hdbCarparkLocations from "../data/hdbCarparkLocations";
+import MapSaver from "./MapSaver";
 
 import AddressIcon from "./AddressIcon";
 import FilterContext from "../context/FilterContext";
@@ -65,12 +66,14 @@ const Map = () => {
                     lat={lat}
                     lon={lon}
                     address={eachAddress.address}
+                    block={eachAddress.block}
+                    street_name={eachAddress.street_name}
                   />
                 );
               }
             }
-
           })}
+          <MapSaver />
         </MarkerClusterGroup>
       </MapContainer>
     </div>

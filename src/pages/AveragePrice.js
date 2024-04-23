@@ -12,6 +12,8 @@ import { apiHDBGet } from "../helperApi";
 import FilterContext from "../context/FilterContext";
 
 const AveragePrice = () => {
+  let initialLoad = true;
+
   const [loading, setLoading] = useState(false);
 
   const rowLimit = 10000;
@@ -19,13 +21,16 @@ const AveragePrice = () => {
   const context = useContext(FilterContext);
 
   useEffect(() => {
-    setLoading(true);
-    apiHDBGet({
-      rowLimit: rowLimit,
-      totalRow: totalRow,
-      context: context,
-      setLoading: setLoading,
-    });
+    if (initialLoad) {
+      setLoading(true);
+      apiHDBGet({
+        rowLimit: rowLimit,
+        totalRow: totalRow,
+        context: context,
+        setLoading: setLoading,
+      });
+      initialLoad = false;
+    }
   }, [context.selected]);
 
   // const apiHDBGet = () => {
