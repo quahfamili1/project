@@ -8,9 +8,8 @@ import AddressList from "./AddressList";
 import "./AveragePrice.css";
 import AddressTable from "./AddressTable";
 import { ClipLoader } from "react-spinners";
-import {apiHDBGet} from "../helperApi";
+import { apiHDBGet } from "../helperApi";
 import FilterContext from "../context/FilterContext";
-
 
 const AveragePrice = () => {
   const [loading, setLoading] = useState(false);
@@ -20,15 +19,14 @@ const AveragePrice = () => {
   const context = useContext(FilterContext);
 
   useEffect(() => {
-      setLoading(true);
-      apiHDBGet({
-        rowLimit: rowLimit,
-        totalRow: totalRow,
-        context: context,
-        setLoading: setLoading,
-      });
-    
-  }, []);
+    setLoading(true);
+    apiHDBGet({
+      rowLimit: rowLimit,
+      totalRow: totalRow,
+      context: context,
+      setLoading: setLoading,
+    });
+  }, [context.selected]);
 
   // const apiHDBGet = () => {
   //   //Read fake data
