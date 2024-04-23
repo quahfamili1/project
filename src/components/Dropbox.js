@@ -7,6 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import RangeSlider from "react-range-slider-input";
 import "react-range-slider-input/dist/style.css";
 import MinMax from "./MinMaxCounter";
+import "./Dropbox.css";
 function Dropbox() {
   const context = useContext(FilterContext);
   // const addresses = context.results;
@@ -137,30 +138,31 @@ function Dropbox() {
           );
         })}
       </select>
-      <br></br>
-      <label>Floor Area SQM</label>
-      <br></br>
-      <MinMax prop={selectedSQMRange} />
-      <RangeSlider
-        min={0}
-        max={300}
-        defaultValue={[0, 300]}
-        value={selectedSQMRange}
-        onInput={setSelectedSQMRange}
-      />
-      <br></br>
-      <br></br>
-      <label>Resale Price</label>
-      <br></br>
-      <MinMax prop={selectedResaleP} />
-      <RangeSlider
-        min={0}
-        max={2000000}
-        defaultValue={[0, 2000000]}
-        value={selectedResaleP}
-        onInput={setSelectedResaleP}
-        step={10000}
-      />
+      <div className="slide">
+        <label>Floor Area SQM</label>
+        <br></br>
+        <MinMax prop={selectedSQMRange} />
+        <RangeSlider
+          min={0}
+          max={300}
+          defaultValue={[0, 300]}
+          value={selectedSQMRange}
+          onInput={setSelectedSQMRange}
+        />
+      </div>
+      <div className="slide">
+        <label>Resale Price</label>
+        <br></br>
+        <MinMax prop={selectedResaleP} />
+        <RangeSlider
+          min={0}
+          max={2000000}
+          defaultValue={[0, 2000000]}
+          value={selectedResaleP}
+          onInput={setSelectedResaleP}
+          step={10000}
+        />
+      </div>
       <br></br>
       <Button label="Submit" onClick={handleFilters} />
     </>

@@ -2,12 +2,6 @@ import Dropbox from "../components/Dropbox";
 import flags from "../assets/flats.png";
 
 function Homepage() {
-<<<<<<< Updated upstream
-  return <div>This is the homepage
-    <br></br>
-    <Dropbox/>
-  </div>;
-=======
   return (
     <div>
       <img
@@ -24,6 +18,5 @@ function Homepage() {
       <Dropbox />
     </div>
   );
->>>>>>> Stashed changes
 }
 export default Homepage;
