@@ -47,6 +47,7 @@ function Dropbox() {
     context.setFilters(filterHistory);
     console.log(filterHistory);
     context.setIsFiltered(true);
+    context.setSelected(context.filters.length);
     navigate(`/result`);
 
   };

@@ -3,6 +3,7 @@ const FilterContext = createContext();
 
 export function FilterProvider({ children }) {
   const [filters, setFilters] = useState([]);
+  const [selected, setSelected] = useState(0);
   const [isFiltered, setIsFiltered] = useState(false);
   const [isSelected, setIsSelected] = useState(false);
   const [results, setResults] = useState([]);
@@ -18,6 +19,8 @@ export function FilterProvider({ children }) {
     blockChosen,
     streetNameChosen,
     resultsAddressChosen,
+    selected,
+    setSelected,
     setFilters,
     setIsFiltered,
     setIsSelected,
