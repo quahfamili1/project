@@ -1,5 +1,6 @@
 
 import BubbleButton from "../components/BubbleButton";
+import Dropbox from "../components/Dropbox";
 import AveragePrice from "../pages/AveragePrice";
 
 function Result() {
@@ -10,7 +11,10 @@ function Result() {
   return (
     <>
       <div>This is the result page</div>
+      <Dropbox/>
+      <br></br>
       <BubbleButton value="data" />
+      <br></br>
       <AveragePrice/>
     </>
   );
