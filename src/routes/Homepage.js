@@ -4,6 +4,7 @@ import flags from "../assets/flats.png";
 function Homepage() {
 <<<<<<< Updated upstream
   return <div>This is the homepage
+    <br></br>
     <Dropbox/>
   </div>;
 =======
