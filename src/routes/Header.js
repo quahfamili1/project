@@ -15,7 +15,9 @@ const Header = () => {
           : `${styles.nav} ${styles.desktop__nav}`
       }
     >
-      <img className={styles.icon} src={icon}></img>
+      <Link to="/">
+        <img className={styles.icon} src={icon}></img>
+      </Link>
       <ul>
         <Link to="/" className={styles.list}>
           <li>Home</li>

@@ -1,3 +1,12 @@
-.table{
-    width: 100%
+.table {
+  width: 100%;
+}
+
+.navg {
+  /* Set width and height for illustration purposes */
+  display: flex;
+  justify-content: space-between;
+  margin-left: 50px;
+  margin-right: 50px;
+  margin-top: 5px;
 }

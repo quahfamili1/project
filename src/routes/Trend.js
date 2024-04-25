@@ -1,11 +1,10 @@
 import PrevTransactionsTable from "../components/PrevTransactionsTable";
 import { useEffect, useState, useContext } from "react";
 import FilterContext from "../context/FilterContext";
-import {apiHDBGetSpecificAddress} from "../helperApi";
+import { apiHDBGetSpecificAddress } from "../helperApi";
 import { useParams } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
-
-
+// import "./Trend.css";
 
 function Trend() {
   let initialLoad = true;
@@ -16,35 +15,38 @@ function Trend() {
   const totalRow = 0;
   const context = useContext(FilterContext);
 
-  const params = useParams()
+  const params = useParams();
 
   useEffect(() => {
-    if(initialLoad){
+    if (initialLoad) {
       setLoading(true);
       apiHDBGetSpecificAddress({
         rowLimit: rowLimit,
         totalRow: totalRow,
         context: context,
         setLoading: setLoading,
-        params: params
+        params: params,
       });
       initialLoad = false;
     }
-
-
   }, []);
 
   return (
     <>
-            {loading ? (
+      {loading ? (
         <ClipLoader color="#36d7b7" />
       ) : (
         <>
-          <div className="table-container">
-              <h2>Address: {params.block} {params.street_name}</h2>
-              <h3>No of records: {context.resultsAddressChosen.length}</h3>
-              <PrevTransactionsTable className="flex-child" />
+          <div
+            className="table-container"
+            style={{ display: "flex", "justify-content": "space-between" }}
+          >
+            <h1>
+              Address: {params.block} {params.street_name}
+            </h1>
+            <h1>No of records: {context.resultsAddressChosen.length}</h1>
           </div>
+          <PrevTransactionsTable className="flex-child" />
         </>
       )}
     </>

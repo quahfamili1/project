@@ -1,7 +1,5 @@
 import apiHDB from "./api/apiHDB";
-import { useState, useEffect } from "react";
 import { hdbCoord } from "./data/hdbCoord";
-import FilterContext from "./context/FilterContext";
 
 export const apiHDBGet = async ({
   rowLimit,
@@ -49,7 +47,7 @@ export const apiHDBGet = async ({
     const response = await apiHDB.get(``, {
       params: {
         resource_id: "d_8b84c4ee58e3cfc0ece0d773c8ca6abc",
-        // limit: 1,
+        limit: 1,
         filters: filter,
       },
     });
@@ -69,7 +67,7 @@ export const apiHDBGet = async ({
     const promises = [];
 
     //Add filter
-    const filtersString = "";
+
     const filters = context.filters;
     filters.map((filter) => {
       if (filter.key == "address") {
