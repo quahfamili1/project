@@ -11,7 +11,7 @@ const AddressTable = () => {
   const [goToPage, setGoToPage] = useState(1);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const recordsPerPage = 20;
+  const recordsPerPage = 10;
   const lastIndex = currentPage * recordsPerPage;
   const firstIndex = lastIndex - recordsPerPage;
   const records = addresses.slice(firstIndex, lastIndex);
