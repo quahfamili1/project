@@ -1,10 +1,6 @@
 import React from "react";
 import Map from "../components/Map";
-import AveragePriceRow from "../components/AveragePriceRow";
 import { useEffect, useState, useContext } from "react";
-import { data } from "../data/data";
-//import { hdbCoord } from "../data/hdbCoord";
-import AddressList from "./AddressList";
 import "./AveragePrice.css";
 import AddressTable from "./AddressTable";
 import { ClipLoader } from "react-spinners";
