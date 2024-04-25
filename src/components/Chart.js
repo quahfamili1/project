@@ -1,7 +1,7 @@
 // Chart.js
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import Chart from 'chart.js/auto';
+import Chart from 'chart.js';
 
 const Chart = () => {
   const [data, setData] = useState(null);
@@ -9,7 +9,7 @@ const Chart = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('https://api.example.com/data');
+        const response = await axios.get('https://data.gov.sg/api/action/datastore_search');
         setData(response.data);
         createChart(response.data);
       } catch (error) {
