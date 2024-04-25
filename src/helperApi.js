@@ -1,5 +1,4 @@
 import apiHDB from "./api/apiHDB";
-import { useState, useEffect } from "react";
 import { hdbCoord } from "./data/hdbCoord";
 
 export const apiHDBGet = async ({
@@ -9,8 +8,12 @@ export const apiHDBGet = async ({
   setLoading,
 }) => {
   try {
+    console.log("selected: " + context.selected);
+    console.log("latest: " + context.filters.length - 1);
     const { town, flat_type, storey_range, flat_model } =
-      context.filters[context.filters.length - 1];
+      context.selected < context.filters.length
+        ? context.filters[context.selected]
+        : context.filters[context.filters.length - 1];
 
     let filter =
       "{" +
@@ -23,7 +26,7 @@ export const apiHDBGet = async ({
       filter = filter.slice(0, -1);
     }
 
-    filter += "}"
+    filter += "}";
 
     /*
     let filter = "{"
@@ -44,7 +47,7 @@ export const apiHDBGet = async ({
     const response = await apiHDB.get(``, {
       params: {
         resource_id: "d_8b84c4ee58e3cfc0ece0d773c8ca6abc",
-        // limit: 1,
+        limit: 1,
         filters: filter,
       },
     });
@@ -64,7 +67,7 @@ export const apiHDBGet = async ({
     const promises = [];
 
     //Add filter
-    const filtersString = "";
+
     const filters = context.filters;
     filters.map((filter) => {
       if (filter.key == "address") {

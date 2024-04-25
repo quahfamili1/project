@@ -1,12 +1,14 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState } from "react";
 
 import "./PrevTransactionsTable.css";
 import FilterContext from "../context/FilterContext";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const PrevTransactionsTable = () => {
-  const context = useContext(FilterContext)
-  const addresses = context.resultsAddressChosen
+  const context = useContext(FilterContext);
+  const addresses = context.resultsAddressChosen;
+
+  const [goToPage, setGoToPage] = useState(1);
 
   const [currentPage, setCurrentPage] = useState(1);
   const recordsPerPage = 20;
@@ -16,20 +18,31 @@ const PrevTransactionsTable = () => {
   const npage = Math.ceil(addresses.length / recordsPerPage);
   const numbers = [...Array(npage + 1).keys()].slice(1);
 
-  console.log("records", records)
+  console.log("records", records);
 
-  const prevPage = () => {
+  const prevPage = (e) => {
+    e.preventDefault();
+    if (currentPage > 1) {
+      setCurrentPage((prevPage) => parseInt(prevPage) - 1);
+    }
+  };
 
-  }
+  const nextPage = (e) => {
+    e.preventDefault();
+    if (currentPage < npage) {
+      setCurrentPage((prevPage) => parseInt(prevPage) + 1);
+    }
+  };
 
-  const nextPage = () => {
-    
-  }
-
-  const changeCurrentPage = () => {
-    
-  }
-
+  const handleGoToPage = (e) => {
+    if (e.target.value == "") {
+      setGoToPage(e.target.value);
+    }
+    if (e.target.value >= 1 && e.target.value <= npage) {
+      setGoToPage(e.target.value);
+      setCurrentPage(e.target.value);
+    }
+  };
 
   return (
     <>
@@ -42,7 +55,7 @@ const PrevTransactionsTable = () => {
             <th>Resale Price (SGD)</th>
           </tr>
         </thead>
-        
+
         <tbody>
           {records.map((record, i) => (
             <tr key={i}>
@@ -54,22 +67,26 @@ const PrevTransactionsTable = () => {
           ))}
         </tbody>
       </table>
+
       <nav>
-        <ul>
-          <li><a href='#' onClick={prevPage}>Prev</a></li>
-          {numbers.map((number, i) => (
-            <li>
-                <a href="#" onClick={changeCurrentPage}>{number}</a>
-
-            </li>
-
-          ))}
-          <li><a href='#' onClick={nextPage}>Next</a></li>
-
-        </ul>
+        <div class="navg">
+          <button class="prev" onClick={(e) => prevPage(e)}>
+            Prev
+          </button>{" "}
+          <div>
+            Curent page: {currentPage}/{npage}
+            <p>
+              Go to page:
+              <input value={goToPage} onChange={(e) => handleGoToPage(e)} />
+            </p>
+          </div>
+          <button class="next" onClick={(e) => nextPage(e)}>
+            Next
+          </button>
+        </div>
       </nav>
     </>
   );
-}
+};
 
-export default PrevTransactionsTable
+export default PrevTransactionsTable;
