@@ -51,11 +51,11 @@ const AddressTable = () => {
   };
 
   const handlerShowOnMap = (address) => {
-    console.log("map", context.map)
-    console.log("Address", address)
+    console.log("map", context.map);
+    console.log("Address", address);
     const { lat, lon } = address;
-    console.log(lat, lon)
-    context.map.flyTo([lat, lon], 18)
+    console.log(lat, lon);
+    context.map.flyTo([lat, lon], 18);
   };
 
   return (
@@ -77,7 +77,13 @@ const AddressTable = () => {
               <td>{(currentPage - 1) * recordsPerPage + i + 1}</td>
               <td>{address.address}</td>
               <td>{address.avg_price}</td>
-              <td>{<button onClick={() => handlerShowOnMap(address)}>Show on map</button>}</td>
+              <td>
+                {
+                  <button onClick={() => handlerShowOnMap(address)}>
+                    Show on map
+                  </button>
+                }
+              </td>
               <td>
                 {
                   <button onClick={() => handlerShowPrevTransactions(address)}>
@@ -90,14 +96,20 @@ const AddressTable = () => {
         </tbody>
       </table>
       <nav>
-        <button onClick={(e) => prevPage(e)}>Prev</button>
-        <button onClick={(e) => nextPage(e)}>Next</button>
-        <div>
-          Curent page: {currentPage}/{npage}
-        </div>
-        <div>
-          Go to page:
-          <input value={goToPage} onChange={(e) => handleGoToPage(e)} />
+        <div class="navg">
+          <button class="prev" onClick={(e) => prevPage(e)}>
+            Prev
+          </button>{" "}
+          <div>
+            Curent page: {currentPage}/{npage}
+            <p>
+              Go to page:
+              <input value={goToPage} onChange={(e) => handleGoToPage(e)} />
+            </p>
+          </div>
+          <button class="next" onClick={(e) => nextPage(e)}>
+            Next
+          </button>
         </div>
       </nav>
     </>
