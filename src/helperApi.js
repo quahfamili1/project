@@ -1,4 +1,5 @@
 import apiHDB from "./api/apiHDB";
+import { useState, useEffect } from "react";
 import { hdbCoord } from "./data/hdbCoord";
 
 export const apiHDBGet = async ({
@@ -8,12 +9,16 @@ export const apiHDBGet = async ({
   setLoading,
 }) => {
   try {
-    console.log("selected: " + context.selected);
-    console.log("latest: " + context.filters.length - 1);
-    const { town, flat_type, storey_range, flat_model } =
-      context.selected < context.filters.length
-        ? context.filters[context.selected]
-        : context.filters[context.filters.length - 1];
+    const {
+      town,
+      flat_type,
+      storey_range,
+      flat_model,
+      floor_area_sqm,
+      lease_commence_date,
+      month,
+      resale_pice,
+    } = context.filters[context.filters.length - 1];
 
     let filter =
       "{" +
@@ -47,7 +52,7 @@ export const apiHDBGet = async ({
     const response = await apiHDB.get(``, {
       params: {
         resource_id: "d_8b84c4ee58e3cfc0ece0d773c8ca6abc",
-        limit: 1,
+        // limit: 1,
         filters: filter,
       },
     });
@@ -65,14 +70,6 @@ export const apiHDBGet = async ({
     }
 
     const promises = [];
-
-    //Add filter
-
-    const filters = context.filters;
-    filters.map((filter) => {
-      if (filter.key == "address") {
-      }
-    });
 
     let rowRead = 0;
     while (rowRead < totalRow) {
@@ -98,7 +95,7 @@ export const apiHDBGet = async ({
     const apiCallResults = await Promise.all(promises);
 
     //Save in listofHdb
-    const listOfHdb = [];
+    let listOfHdb = [];
 
     apiCallResults.map((apiCallResult) => {
       const records = apiCallResult.data.result.records;
@@ -107,6 +104,38 @@ export const apiHDBGet = async ({
         listOfHdb.push(record);
       });
     });
+
+    //Additional filter that cant use API
+    //Transaction month filter
+    let transactionTimeStart = month[0]
+    if(transactionTimeStart == null){transactionTimeStart = new Date(0, 0)}
+    let transactionTimeEnd = month[1]
+    if(transactionTimeEnd == null){transactionTimeEnd = new Date()} // return current date
+
+    console.log("transactionTimeStart", transactionTimeStart)
+    console.log("transactionTimeEnd", transactionTimeEnd)
+
+    listOfHdb = listOfHdb.filter((hdb) => {
+      const hdbTransactionTime = new Date(hdb.month.split("-")[0], hdb.month.split("-")[1])
+      return (hdbTransactionTime > transactionTimeStart && hdbTransactionTime < transactionTimeEnd)
+    })
+
+    //Lease start filter
+    let leaseStart = month[0]
+    if(leaseStart == null){leaseStart = new Date(0, 0)}
+    let leaseEnd = month[1]
+    if(leaseEnd == null){leaseEnd = new Date()} // return current date
+
+    listOfHdb = listOfHdb.filter((hdb) => {
+      const hdbLeaseYear = new Date(hdb.lease_commence_date, 0)
+      console.log("hdbLeaseYear", hdbLeaseYear)
+      return (hdbLeaseYear > leaseStart && hdbLeaseYear < leaseStart)
+    })
+
+    //Sqm filter
+
+    //Price filter
+
 
     //Get unique addresses only and its average price
     const varUniqueAddresses = [];
