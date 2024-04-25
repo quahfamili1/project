@@ -7,8 +7,6 @@ import "./Result.css";
 
 function Result() {
   const context = useContext(FilterContext);
-  // const arr = Array.from(context.filters);
-  // console.log(arr);
   const [filterOn, setFilterOn] = useState(false);
   const toggleFilter = () => {
     if (!filterOn) {
