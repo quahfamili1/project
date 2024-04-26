@@ -3,7 +3,7 @@ import { useState, useContext } from 'react';
 import Chart from 'chart.js/auto';
 import FilterContext from '../context/FilterContext';
 
-const AddrChart = ({ data }) => {
+const AddrChart = () => {
   const [loading, setLoading] = useState(true);
   const context = useContext(FilterContext);
   const [data, setData] = useState(context.resultsAddressChosen);
@@ -15,9 +15,9 @@ const AddrChart = ({ data }) => {
       }
     }, [data]);
 
-  const createChart = (data) => {
-    const addresses = data.map((item) => item.address);
-    const avgPrices = data.map((item) => item.avg_price);
+  const createChart = (chartData) => {
+    const addresses = chartData.map((item) => item.address);
+    const avgPrices = chartData.map((item) => item.avg_price);
 
     const ctx = document.getElementById('myChart');
     new Chart(ctx, {
