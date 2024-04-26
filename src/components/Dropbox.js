@@ -23,14 +23,6 @@ function Dropbox() {
   const [selectedSQMRange, setSelectedSQMRange] = useState([0, 300]);
   const [selectedResaleP, setSelectedResaleP] = useState([0, 2000000]);
 
-  /*
-  //add variable for selected filter
-  let selectedTown = "",
-    selectedFlatType = "",
-    selectedStoryRange = "",
-    selectedFlatModel = "";
-    */
-
   const handleFilters = () => {
     const newFilter = {
       month: selectedDateRange,
