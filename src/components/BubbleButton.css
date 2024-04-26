@@ -1,0 +1,9 @@
+.bubble-button {
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 50%; /* Makes it circular */
+  background-color: #007bff; /* Bubble-like color */
+  opacity: 0.9; /* Adjust opacity for the effect */
+  cursor: pointer;
+  margin-top: 10px;
+}

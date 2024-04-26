@@ -1,70 +1,21 @@
-# Getting Started with Create React App
+# Hdb finder
+This project was a group work by 4 students who are learning how to develop react app. 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## App description
+The app provides users with latest hdb sales data and allow users to find the average transacted price of the area of interest. 
 
-## Available Scripts
+### Users stories
+#### Implemented features
+* As a user, I want to be able to input the location of the property I'm interested in so that I can receive an accurate average price based on property type (e.g., apartment, house, condo) for that area.
+* As a user, I want to see the location plotted on map so I know which areas are suitable to my filter
+* As a user, I want to be able to filter the average price results based on specific criteria such as the number of bedrooms, bathrooms, or square footage.
+* As a user, I want the app to display a list of last 10 historical data on property prices in the area so that I can track trends and make informed decisions.
 
-In the project directory, you can run:
+#### Future implementation
+* As a user, I want the app to provide insights into factors that may influence property prices in a particular area, such as nearby schools, public transportation, or crime rates.
+* As a user, I want the option to save my favorite areas and properties for quick access and comparison in the future.
+* As a user, I want to be able to share the average property prices with others via social media or messaging platforms.
+* As a user, I want to see histogram before applying my filter so I can see the trend (like airbnb filter)
+* As a user, I want to compare 2 areas on the same page
 
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Demo app can be found at https://hdbfinder.netlify.app
