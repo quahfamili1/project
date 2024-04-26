@@ -4,18 +4,42 @@ import FilterContext from "../context/FilterContext";
 import { apiHDBGetSpecificAddress } from "../helperApi";
 import { useParams } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
-// import "./Trend.css";
+import { Line } from "react-chartjs-2";
 
 function Trend() {
   let initialLoad = true;
-
   const [loading, setLoading] = useState(true);
-
   const rowLimit = 10000;
   const totalRow = 0;
   const context = useContext(FilterContext);
-
   const params = useParams();
+
+  //Get unique month and type and its average price
+  const varUniqueMonth = [];
+  const varTotalPricePerMonth = [];
+  const varCountPerMonth = [];
+  context.resultsAddressChosen.map((row) => {
+    const month = row.month;
+    const price = row.resale_price;
+
+    if (varUniqueMonth.indexOf(month) == -1) {
+      varUniqueMonth.push(month);
+      varTotalPricePerMonth.push(parseFloat(price));
+      varCountPerMonth.push(1);
+    } else {
+      varTotalPricePerMonth[varUniqueMonth.indexOf(month)] += parseFloat(price);
+      varCountPerMonth[varUniqueMonth.indexOf(month)] += 1;
+    }
+  });
+
+  //Get avg price
+  const varAveragePrices = [];
+  varTotalPricePerMonth.map((varTotalPricePerMonth, index) => {
+    varAveragePrices.push(
+      parseInt(varTotalPricePerMonth / varCountPerMonth[index])
+    );
+  });
+  console.log("avg", varAveragePrices);
 
   useEffect(() => {
     if (initialLoad) {
@@ -46,6 +70,19 @@ function Trend() {
             </h1>
             <h1>No of records: {context.resultsAddressChosen.length}</h1>
           </div>
+
+          <Line
+            data={{
+              labels: varUniqueMonth,
+              datasets: [
+                {
+                  label: "Price by months",
+                  data: varAveragePrices,
+                },
+              ],
+            }}
+          />
+          <br></br>
           <PrevTransactionsTable className="flex-child" />
         </>
       )}
