@@ -5,9 +5,7 @@ import { filterContext } from "./context/FilterContext";
 function Filter() {
   let initialLoad = true;
   const rowLimit = 10000;
-  //const [rowRead, setRowRead] = useState(0)
   const [totalRow, setTotalRow] = useState(0);
-  // const [hdbData, setHdbData] = useState([]);
 
   let rowRead = 0;
 

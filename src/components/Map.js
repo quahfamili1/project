@@ -1,24 +1,17 @@
 import React from "react";
-//import { apiLTA, apiHDB } from "../api/api";
-import { useEffect, useState, useContext } from "react";
-import { MapContainer, TileLayer, useMap, Marker, Popup } from "react-leaflet";
+import { useContext } from "react";
+import { MapContainer, TileLayer } from "react-leaflet";
 import L from "leaflet";
 import "./Map.css";
 import "leaflet/dist/leaflet.css";
-//import Detail from "../components/Detail";
 import MarkerClusterGroup from "react-leaflet-cluster";
-import { Icon } from "leaflet";
-//import hdbCarparkLocations from "../data/hdbCarparkLocations";
 import MapSaver from "./MapSaver";
-
 import AddressIcon from "./AddressIcon";
 import FilterContext from "../context/FilterContext";
 
 const Map = () => {
-  
-  //const map = useMap();
-  const context = useContext(FilterContext)
-  const addresses = context.results
+  const context = useContext(FilterContext);
+  const addresses = context.results;
 
   const createCustomClusterIcon = (cluster) => {
     const allChildMarkers = cluster.getAllChildMarkers();
@@ -43,7 +36,6 @@ const Map = () => {
         zoom={12}
         scrollWheelZoom={true}
       >
-        {/*<button onClick={() => map.panTo([130, 130])}></button>*/}
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -54,11 +46,10 @@ const Map = () => {
           iconCreateFunction={createCustomClusterIcon}
         >
           {addresses.map((eachAddress) => {
-            if (eachAddress)
-            {
+            if (eachAddress) {
               const lat = eachAddress.lat;
               const lon = eachAddress.lon;
-  
+
               if (lat && lon) {
                 return (
                   <AddressIcon
@@ -78,14 +69,8 @@ const Map = () => {
       </MapContainer>
     </div>
   );
-  
 
-  return (
-    <>
-      {displayMap}
-    </>
-
-  );
+  return <>{displayMap}</>;
 };
 
 export default Map;

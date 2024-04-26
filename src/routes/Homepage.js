@@ -1,5 +1,5 @@
 import Dropbox from "../components/Dropbox";
-import flags from "../assets/flats.png";
+import flags from "../assets/flats.jpg";
 
 function Homepage() {
   return (
