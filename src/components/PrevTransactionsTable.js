@@ -2,7 +2,8 @@ import React, { useContext, useState } from "react";
 
 import "./PrevTransactionsTable.css";
 import FilterContext from "../context/FilterContext";
-import { useNavigate } from "react-router-dom";
+import AddressTable from "./AddressTable";
+import AddrChart from "./AddrChart";
 
 const PrevTransactionsTable = () => {
   const context = useContext(FilterContext);
