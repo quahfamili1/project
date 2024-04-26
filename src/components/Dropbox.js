@@ -12,10 +12,10 @@ function Dropbox() {
   const context = useContext(FilterContext);
   const navigate = useNavigate();
 
-  const [selectedTown, setSelectedTown] = useState(Town[1]);
-  const [selectedFlatType, setSelectedFlatType] = useState(FlatType[1]);
-  const [selectedStoryRange, setSelectedStoryRange] = useState(StoryRange[1]);
-  const [selectedFlatModel, setSelectedFlatModel] = useState(FlatModel[1]);
+  const [selectedTown, setSelectedTown] = useState("");
+  const [selectedFlatType, setSelectedFlatType] = useState("");
+  const [selectedStoryRange, setSelectedStoryRange] = useState("");
+  const [selectedFlatModel, setSelectedFlatModel] = useState("");
   const [selectedDateRange, setselectedDateRange] = useState([null, null]);
   const [startDate, endDate] = selectedDateRange;
   const [selectedLeaseDate, setselectedLeaseDate] = useState([null, null]);
@@ -34,8 +34,11 @@ function Dropbox() {
       lease_commence_date: selectedLeaseDate,
       resale_price: selectedResaleP,
     };
-
+   
+    console.log(selectedTown == "");
+    console.log(selectedTown);
     const filterHistory = [...context.filters, newFilter];
+    console.log(filterHistory);
     context.setFilters(filterHistory);
     context.setIsFiltered(true);
     context.setSelected(context.filters.length);
@@ -74,6 +77,7 @@ function Dropbox() {
           setSelectedTown(e.target.value);
         }}
       >
+        <option value="" disabled selected label= "Select Town"/>
         {Town.map((a) => {
           return (
             <option key={a} value={a}>
@@ -89,6 +93,7 @@ function Dropbox() {
           setSelectedFlatType(e.target.value);
         }}
       >
+        <option value="" disabled selected label= "Select Flat Type"/>
         {FlatType.map((a) => {
           return (
             <option key={a} value={a}>
@@ -106,6 +111,7 @@ function Dropbox() {
           setSelectedStoryRange(e.target.value);
         }}
       >
+        <option value='' disabled selected label= "Select Story Range"/>
         {StoryRange.map((a) => {
           return (
             <option key={a} value={a}>
@@ -120,6 +126,7 @@ function Dropbox() {
           setSelectedFlatModel(e.target.value);
         }}
       >
+        <option value='' disabled selected label= "Select Flat Model"/>
         {FlatModel.map((a) => {
           return (
             <option key={a} value={a}>
