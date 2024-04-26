@@ -20,6 +20,7 @@ export const apiHDBGet = async ({
       resale_pice,
     } = context.filters[context.filters.length - 1];
 
+    //Build filter based on API requirements
     let filter =
       "{" +
       (town != "All" ? '"town": "' + town + '",' : "") +
@@ -33,19 +34,6 @@ export const apiHDBGet = async ({
 
     filter += "}";
 
-    /*
-    let filter = "{"
-
-    if (town != "All"){filter += `"town": "${town}",`}
-    if (flat_type != "All"){filter += `"flat_type": "${flat_type}",`}
-    if (storey_range != "All"){filter += `"storey_range": "${storey_range}",`}
-    if (flat_model != "All"){filter += `"flat_model": "${flat_model}",`}
-
-    if (filter[filter.length - 1] == ",") {filter = filter.slice(0, -1);}
-
-    filter += "}"
-    */
-
     console.log(filter);
 
     //First call to check how many rows are there
@@ -57,18 +45,13 @@ export const apiHDBGet = async ({
       },
     });
 
-    console.log("response", response);
-    totalRow = response.data.result.total;
-    console.log("totalRow", totalRow);
-
-    //To delete later
-    // totalRow = 15;
-
     //Set rowLimit if totalRow < rowLimit
+    totalRow = response.data.result.total;
     if (totalRow < rowLimit) {
       rowLimit = totalRow;
     }
 
+    //Add filter
     const promises = [];
 
     let rowRead = 0;
@@ -86,10 +69,7 @@ export const apiHDBGet = async ({
 
       //setRowRead(prevState => prevState + rowLimit);
       rowRead += rowLimit;
-      console.log("rowRead", rowRead);
     }
-
-    console.log("promises", promises);
 
     //Use Promise.all combinator
     const apiCallResults = await Promise.all(promises);
@@ -147,12 +127,6 @@ export const apiHDBGet = async ({
       const hdbAddress = hdb.block + " " + hdb.street_name;
 
       if (varUniqueAddresses.indexOf(hdbAddress) == -1) {
-        // not found
-        /*
-        setUniqueAddresses((prevState) => [...prevState, hdbAddress])
-        setTotalPricePerUnitAddresses((prevState) => [...prevState, hdb.resale_price])
-        setCountAddresseses((prevState) => [...prevState, 1])
-        */
         varUniqueAddresses.push(hdbAddress);
         varBlock.push(hdb.block);
         varStreetName.push(hdb.street_name);
@@ -197,7 +171,6 @@ export const apiHDBGet = async ({
       }
     );
 
-    //context.results = listOfHdb
     context.setResults(listOfHdbWithCoord);
 
     console.log("context in helperapi", context);
@@ -276,12 +249,7 @@ export const apiHDBGetSpecificAddress = async ({
       });
     });
 
-    console.log(listOfHdb);
-
     context.setResultsAddressChosen(listOfHdb);
-
-    console.log("context in helperapi", context);
-
     setLoading(false);
   } catch (error) {
     console.log(error.message);
