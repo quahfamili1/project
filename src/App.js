@@ -1,8 +1,5 @@
-<<<<<<< HEAD
 // import { useState } from "react";
 import React, { useState, useEffect } from 'react';
-=======
->>>>>>> main
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./routes/Header";

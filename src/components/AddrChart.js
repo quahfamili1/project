@@ -1,23 +1,28 @@
 // Chart.js
-import { useState, useEffect } from 'react';
+import { useState, useContext } from 'react';
 import axios from 'axios';
-import Chart from 'chart.js';
+import Chart from 'chart.js/auto';
+import FilterContext from '../context/FilterContext';
 
-const Chart = () => {
-  const [data, setData] = useState(null);
+const AddrChart = () => {
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('https://data.gov.sg/api/action/datastore_search');
-        setData(response.data);
-        createChart(response.data);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-    fetchData();
-  }, []);
+  const context = useContext(FilterContext);
+  const [data, setData] = useState(context.resultsAddressChosen);
+  console.log(data);
+  // const addresses = context.resultsAddressChosen;
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await axios.get('https://data.gov.sg/api/action/datastore_search');
+  //       setData(response.data);
+  //       createChart(response.data);
+  //     } catch (error) {
+  //       console.error('Error fetching data:', error);
+  //     }
+  //   };
+  //   fetchData();
+  // }, []);
 
   const createChart = (data) => {
     const labels = data.map((item) => item.label);
@@ -63,17 +68,4 @@ const Chart = () => {
   );
 };
 
-export default Chart;
-
-// const createChart = (data) => {
-//   // To customize the chart appearance and options
-//   // can use the 'data' prop to populate the chart
-
-//   return (
-//     <div>
-//       {/* Render your bar chart here */}
-//     </div>
-//   );
-// }
-
-// export default Chart;
+export default AddrChart;

@@ -5,6 +5,7 @@ import { apiHDBGetSpecificAddress } from "../helperApi";
 import { useParams } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 // import "./Trend.css";
+import AddrChart from "../components/AddrChart";
 
 function Trend() {
   let initialLoad = true;
@@ -46,6 +47,7 @@ function Trend() {
             </h1>
             <h1>No of records: {context.resultsAddressChosen.length}</h1>
           </div>
+          <AddrChart />
           <PrevTransactionsTable className="flex-child" />
         </>
       )}
