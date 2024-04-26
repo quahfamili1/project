@@ -50,9 +50,15 @@ const PrevTransactionsTable = () => {
         <thead>
           <tr>
             <th>No</th>
+            <th>Address</th>
             <th>Month</th>
+            <th>Flat Model</th>
             <th>Flat Type</th>
+            <th>Floor Area (sqm)</th>
+            <th>Lease commencement date</th>
+            <th>Storey range</th>
             <th>Resale Price (SGD)</th>
+            <th>Price/Floor Area (SGD/m2)</th>
           </tr>
         </thead>
 
@@ -60,9 +66,20 @@ const PrevTransactionsTable = () => {
           {records.map((record, i) => (
             <tr key={i}>
               <td>{i + 1}</td>
+              <td>{record.block + " " + record.street_name}</td>
               <td>{record.month}</td>
+              <td>{record.flat_model}</td>
               <td>{record.flat_type}</td>
+              <td>{record.floor_area_sqm}</td>
+              <td>{record.lease_commence_date}</td>
+              <td>{record.storey_range}</td>
               <td>{record.resale_price}</td>
+              <td>
+                {parseInt(
+                  parseFloat(record.resale_price) /
+                    parseFloat(record.floor_area_sqm)
+                )}
+              </td>
             </tr>
           ))}
         </tbody>
