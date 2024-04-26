@@ -1,41 +1,32 @@
 // Chart.js
 import { useState, useContext } from 'react';
-import axios from 'axios';
 import Chart from 'chart.js/auto';
 import FilterContext from '../context/FilterContext';
 
-const AddrChart = () => {
-
+const AddrChart = ({ data }) => {
+  const [loading, setLoading] = useState(true);
   const context = useContext(FilterContext);
   const [data, setData] = useState(context.resultsAddressChosen);
-  console.log(data);
-  // const addresses = context.resultsAddressChosen;
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await axios.get('https://data.gov.sg/api/action/datastore_search');
-  //       setData(response.data);
-  //       createChart(response.data);
-  //     } catch (error) {
-  //       console.error('Error fetching data:', error);
-  //     }
-  //   };
-  //   fetchData();
-  // }, []);
+    useEffect(() => {
+      if (data && data.length > 0) {
+        createChart(data);
+        setLoading(false);
+      }
+    }, [data]);
 
   const createChart = (data) => {
-    const labels = data.map((item) => item.label);
-    const values = data.map((item) => item.value);
+    const addresses = data.map((item) => item.address);
+    const avgPrices = data.map((item) => item.avg_price);
 
     const ctx = document.getElementById('myChart');
     new Chart(ctx, {
       type: 'bar',
       data: {
-        labels: labels,
+        labels: addresses,
         datasets: [{
-          label: 'Data Values',
-          data: values,
+          label: 'Average Price (SGD)',
+          data: avgPrices,
           backgroundColor: 'rgba(54, 162, 235, 0.6)',
         }],
       },
@@ -51,21 +42,13 @@ const AddrChart = () => {
 
   return (
     <div>
-      <h2>Data from API:</h2>
-      {data ? (
-        <div>
-          <canvas options></canvas>
-          <ul>
-            {data.map((item) => (
-              <li key={item.id}>{item.name}</li>
-            ))}
-          </ul>
-        </div>
-      ) : (
+      <h2>Address Average Prices:</h2>
+      {loading ? (
         <p>Loading...</p>
+      ) : (
+        <canvas id="myChart"></canvas>
       )}
     </div>
-    
   );
 };
 
