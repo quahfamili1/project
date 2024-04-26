@@ -54,7 +54,7 @@ const AddrChart = () => {
       <h2>Data from API:</h2>
       {data ? (
         <div>
-          <canvas id="myChart" width="400" height="200"></canvas>
+          <canvas options></canvas>
           <ul>
             {data.map((item) => (
               <li key={item.id}>{item.name}</li>
@@ -65,6 +65,7 @@ const AddrChart = () => {
         <p>Loading...</p>
       )}
     </div>
+    
   );
 };
 

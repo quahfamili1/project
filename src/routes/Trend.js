@@ -27,6 +27,9 @@ function Trend() {
         context: context,
         setLoading: setLoading,
         params: params,
+      }).then((data) => {
+        setAddressData(data); // apiHDBGetSpecificAddress returns the data
+        setLoading(false);
       });
       initialLoad = false;
     }
@@ -47,7 +50,7 @@ function Trend() {
             </h1>
             <h1>No of records: {context.resultsAddressChosen.length}</h1>
           </div>
-          <AddrChart />
+          <AddrChart data={addressData} />
           <PrevTransactionsTable className="flex-child" />
         </>
       )}
