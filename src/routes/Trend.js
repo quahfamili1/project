@@ -5,6 +5,7 @@ import { apiHDBGetSpecificAddress } from "../helperApi";
 import { useParams } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import { Line } from "react-chartjs-2";
+import { Chart } from "chart.js/auto";
 
 function Trend() {
   let initialLoad = true;
@@ -14,13 +15,15 @@ function Trend() {
   const context = useContext(FilterContext);
   const params = useParams();
 
-  //Get unique month and type and its average price
+  // Get unique month and type and its average price
   const varUniqueMonth = [];
   const varTotalPricePerMonth = [];
   const varCountPerMonth = [];
-  context.resultsAddressChosen.map((row) => {
+  Array.from(context.resultsAddressChosen).map((row) => {
     const month = row.month;
     const price = row.resale_price;
+
+    console.log(month, price);
 
     if (varUniqueMonth.indexOf(month) == -1) {
       varUniqueMonth.push(month);
@@ -32,7 +35,7 @@ function Trend() {
     }
   });
 
-  //Get avg price
+  // //Get avg price
   const varAveragePrices = [];
   varTotalPricePerMonth.map((varTotalPricePerMonth, index) => {
     varAveragePrices.push(
