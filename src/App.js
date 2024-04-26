@@ -6,9 +6,14 @@ import Result from "./routes/Result";
 import Trend from "./routes/Trend";
 import Aboutus from "./routes/Aboutus";
 import { FilterProvider } from "./context/FilterContext";
+import { useEffect } from "react";
 
 function App() {
   const DefaultPage = () => <p>Nothing to see here!</p>;
+
+  useEffect(() => {
+    document.title = "HDB Finder"
+ }, []);
 
   return (
     <div className="App">
