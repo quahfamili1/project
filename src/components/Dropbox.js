@@ -4,12 +4,12 @@ import Button from "./SubmitButton";
 import { useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import RangeSlider from 'react-range-slider-input';
-import 'react-range-slider-input/dist/style.css';
+import RangeSlider from "react-range-slider-input";
+import "react-range-slider-input/dist/style.css";
 import MinMax from "./MinMaxCounter";
+import "./Dropbox.css";
 function Dropbox() {
   const context = useContext(FilterContext);
-  // const addresses = context.results;
   const navigate = useNavigate();
 
   const [selectedTown, setSelectedTown] = useState(Town[1]);
@@ -20,8 +20,8 @@ function Dropbox() {
   const [startDate, endDate] = selectedDateRange;
   const [selectedLeaseDate, setselectedLeaseDate] = useState([null, null]);
   const [leaseStartDate, leaseEndDate] = selectedLeaseDate;
-  const [selectedSQMRange, setSelectedSQMRange] = useState([0,300]);
-  const [selectedResaleP, setSelectedResaleP] = useState([0,2000000]);
+  const [selectedSQMRange, setSelectedSQMRange] = useState([0, 300]);
+  const [selectedResaleP, setSelectedResaleP] = useState([0, 2000000]);
 
   /*
   //add variable for selected filter
@@ -37,46 +37,46 @@ function Dropbox() {
       town: selectedTown,
       flat_type: selectedFlatType,
       storey_range: selectedStoryRange,
-      floor_area_sqm:selectedSQMRange,
+      floor_area_sqm: selectedSQMRange,
       flat_model: selectedFlatModel,
       lease_commence_date: selectedLeaseDate,
-      resale_price:selectedResaleP,
+      resale_price: selectedResaleP,
     };
 
     const filterHistory = [...context.filters, newFilter];
     context.setFilters(filterHistory);
     console.log(filterHistory);
     context.setIsFiltered(true);
+    context.setSelected(context.filters.length);
     navigate(`/result`);
-
   };
   return (
     <>
       <DatePicker
-  dateFormat="MMM YY"
-  showMonthYearPicker
-  selectsRange={true}
-  startDate={startDate}
-  endDate={endDate}
-  onChange={(update) => {
-    setselectedDateRange(update);
-  }}
-  isClearable={true}
-  placeholderText='Select Resale Date Range'
-/>
-<DatePicker
-  dateFormat="YYYY"
-  showYearPicker
-  selectsRange={true}
-  startDate={leaseStartDate}
-  endDate={leaseEndDate}
-  onChange={(update) => {
-    setselectedLeaseDate(update);
-  }}
-  isClearable={true}
-  placeholderText='Select Lease Start Date'
-/>
-<br></br>
+        dateFormat="MMM YY"
+        showMonthYearPicker
+        selectsRange={true}
+        startDate={startDate}
+        endDate={endDate}
+        onChange={(update) => {
+          setselectedDateRange(update);
+        }}
+        isClearable={true}
+        placeholderText="Select Resale Date Range"
+      />
+      <DatePicker
+        dateFormat="YYYY"
+        showYearPicker
+        selectsRange={true}
+        startDate={leaseStartDate}
+        endDate={leaseEndDate}
+        onChange={(update) => {
+          setselectedLeaseDate(update);
+        }}
+        isClearable={true}
+        placeholderText="Select Lease Start Date"
+      />
+      <br></br>
       <select
         value={selectedTown}
         onChange={(e) => {
@@ -137,30 +137,31 @@ function Dropbox() {
           );
         })}
       </select>
-      <br></br>
-      <label>Floor Area SQM</label>
-      <br></br>
-      <MinMax prop={selectedSQMRange}/>
+      <div className="slide">
+        <label>Floor Area SQM</label>
+        <br></br>
+        <MinMax prop={selectedSQMRange} />
         <RangeSlider
-        min={0}
-        max= {300}
-        defaultValue={[0,300]}
-        value={selectedSQMRange} 
-        onInput={setSelectedSQMRange}
+          min={0}
+          max={300}
+          defaultValue={[0, 300]}
+          value={selectedSQMRange}
+          onInput={setSelectedSQMRange}
         />
-      <br></br>
-      <br></br>
-      <label>Resale Price</label>
-      <br></br>
-      <MinMax prop={selectedResaleP}/>
+      </div>
+      <div className="slide">
+        <label>Resale Price</label>
+        <br></br>
+        <MinMax prop={selectedResaleP} />
         <RangeSlider
-        min={0}
-        max= {2000000}
-        defaultValue={[0,2000000]}
-        value={selectedResaleP} 
-        onInput={setSelectedResaleP}
-        step ={10000}
+          min={0}
+          max={2000000}
+          defaultValue={[0, 2000000]}
+          value={selectedResaleP}
+          onInput={setSelectedResaleP}
+          step={10000}
         />
+      </div>
       <br></br>
       <Button label="Submit" onClick={handleFilters} />
     </>
@@ -208,54 +209,6 @@ const FlatType = [
   "1 ROOM",
   "MULTI-GENERATION",
 ];
-
-// const list = ["AMK", "CCK", "BG", "BW"];
-
-// function dropbox() {
-//   return (
-//     <input list="Town" name="browser" id="browser">
-//     <datalist id="country">
-//       <option value="AMK"/>
-//       <option value="CCK"/>
-//       <option value="BG"/>
-//     </datalist>
-//     </input>
-//   );
-// }
-// export default dropbox;
-
-// "month": "2017-12",  <= range
-// "town": "SEMBAWANG", <= list selection
-// "flat_type": "4 ROOM", <= list selection
-// "storey_range": "07 TO 09", <= list selection
-// "floor_area_sqm": "85", <= range
-// "flat_model": "Model A", <= list selection
-// "remaining_lease": "85 years 08 months", list selection
-// "resale_price": "355000" <= range
-
-// 11.18
-
-// // These countries need to be displayed as a dropdown in the input field
-// const countries = ["Canada", "Russia", "Germany", "Italy"];
-
-// // This is that input field
-// const countryInput = document.getElementById('countryInput');
-
-// // This is the datalist
-// const datalist = document.getElementById('countriesDataList');
-
-// function populateList(arr) {
-//   arr.forEach(country => {
-//     var option = document.createElement("option");
-//     option.innerHTML = country;
-//     datalist.appendChild(option);
-//   });
-// }
-
-// populateList(countries);
-// <input type="text" list="countriesDataList" id="countryInput" />
-
-// <datalist id="countriesDataList"></datalist>
 
 const StoryRange = [
   "All",

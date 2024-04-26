@@ -1,5 +1,4 @@
 import apiHDB from "./api/apiHDB";
-import { useState, useEffect } from "react";
 import { hdbCoord } from "./data/hdbCoord";
 
 export const apiHDBGet = async ({
@@ -10,8 +9,11 @@ export const apiHDBGet = async ({
 }) => {
   try {
     const { town, flat_type, storey_range, flat_model } =
-      context.filters[context.filters.length - 1];
+      context.selected < context.filters.length
+        ? context.filters[context.selected]
+        : context.filters[context.filters.length - 1];
 
+    //Build filter based on API requirements
     let filter =
       "{" +
       (town != "All" ? '"town": "' + town + '",' : "") +
@@ -23,20 +25,7 @@ export const apiHDBGet = async ({
       filter = filter.slice(0, -1);
     }
 
-    filter += "}"
-
-    /*
-    let filter = "{"
-
-    if (town != "All"){filter += `"town": "${town}",`}
-    if (flat_type != "All"){filter += `"flat_type": "${flat_type}",`}
-    if (storey_range != "All"){filter += `"storey_range": "${storey_range}",`}
-    if (flat_model != "All"){filter += `"flat_model": "${flat_model}",`}
-
-    if (filter[filter.length - 1] == ",") {filter = filter.slice(0, -1);}
-
-    filter += "}"
-    */
+    filter += "}";
 
     console.log(filter);
 
@@ -44,27 +33,19 @@ export const apiHDBGet = async ({
     const response = await apiHDB.get(``, {
       params: {
         resource_id: "d_8b84c4ee58e3cfc0ece0d773c8ca6abc",
-        // limit: 1,
+        limit: 1,
         filters: filter,
       },
     });
 
-    console.log("response", response);
-    totalRow = response.data.result.total;
-    console.log("totalRow", totalRow);
-
-    //To delete later
-    // totalRow = 15;
-
     //Set rowLimit if totalRow < rowLimit
+    totalRow = response.data.result.total;
     if (totalRow < rowLimit) {
       rowLimit = totalRow;
     }
 
-    const promises = [];
-
     //Add filter
-    const filtersString = "";
+    const promises = [];
     const filters = context.filters;
     filters.map((filter) => {
       if (filter.key == "address") {
@@ -86,10 +67,7 @@ export const apiHDBGet = async ({
 
       //setRowRead(prevState => prevState + rowLimit);
       rowRead += rowLimit;
-      console.log("rowRead", rowRead);
     }
-
-    console.log("promises", promises);
 
     //Use Promise.all combinator
     const apiCallResults = await Promise.all(promises);
@@ -115,12 +93,6 @@ export const apiHDBGet = async ({
       const hdbAddress = hdb.block + " " + hdb.street_name;
 
       if (varUniqueAddresses.indexOf(hdbAddress) == -1) {
-        // not found
-        /*
-        setUniqueAddresses((prevState) => [...prevState, hdbAddress])
-        setTotalPricePerUnitAddresses((prevState) => [...prevState, hdb.resale_price])
-        setCountAddresseses((prevState) => [...prevState, 1])
-        */
         varUniqueAddresses.push(hdbAddress);
         varBlock.push(hdb.block);
         varStreetName.push(hdb.street_name);
@@ -165,7 +137,6 @@ export const apiHDBGet = async ({
       }
     );
 
-    //context.results = listOfHdb
     context.setResults(listOfHdbWithCoord);
 
     console.log("context in helperapi", context);
@@ -244,12 +215,7 @@ export const apiHDBGetSpecificAddress = async ({
       });
     });
 
-    console.log(listOfHdb);
-
     context.setResultsAddressChosen(listOfHdb);
-
-    console.log("context in helperapi", context);
-
     setLoading(false);
   } catch (error) {
     console.log(error.message);
