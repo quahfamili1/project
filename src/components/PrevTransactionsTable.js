@@ -58,6 +58,7 @@ const PrevTransactionsTable = () => {
             <th>Lease commencement date</th>
             <th>Storey range</th>
             <th>Resale Price (SGD)</th>
+            <th>Price/Floor Area (SGD/m2)</th>
           </tr>
         </thead>
 
@@ -73,6 +74,12 @@ const PrevTransactionsTable = () => {
               <td>{record.lease_commence_date}</td>
               <td>{record.storey_range}</td>
               <td>{record.resale_price}</td>
+              <td>
+                {parseInt(
+                  parseFloat(record.resale_price) /
+                    parseFloat(record.floor_area_sqm)
+                )}
+              </td>
             </tr>
           ))}
         </tbody>

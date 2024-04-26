@@ -17,7 +17,7 @@ export const apiHDBGet = async ({
       floor_area_sqm,
       lease_commence_date,
       month,
-      resale_pice,
+      resale_price,
     } = context.filters[context.filters.length - 1];
 
     //Build filter based on API requirements
@@ -33,8 +33,6 @@ export const apiHDBGet = async ({
     }
 
     filter += "}";
-
-    console.log(filter);
 
     //First call to check how many rows are there
     const response = await apiHDB.get(``, {
@@ -84,7 +82,7 @@ export const apiHDBGet = async ({
         listOfHdb.push(record);
       });
     });
-
+    
     //Additional filter that cant use API
     //Transaction month filter
     let transactionTimeStart = month[0]
@@ -92,29 +90,38 @@ export const apiHDBGet = async ({
     let transactionTimeEnd = month[1]
     if(transactionTimeEnd == null){transactionTimeEnd = new Date()} // return current date
 
-    console.log("transactionTimeStart", transactionTimeStart)
-    console.log("transactionTimeEnd", transactionTimeEnd)
-
     listOfHdb = listOfHdb.filter((hdb) => {
       const hdbTransactionTime = new Date(hdb.month.split("-")[0], hdb.month.split("-")[1])
       return (hdbTransactionTime > transactionTimeStart && hdbTransactionTime < transactionTimeEnd)
     })
 
     //Lease start filter
-    let leaseStart = month[0]
+    let leaseStart = lease_commence_date[0]
     if(leaseStart == null){leaseStart = new Date(0, 0)}
-    let leaseEnd = month[1]
+    let leaseEnd = lease_commence_date[1]
     if(leaseEnd == null){leaseEnd = new Date()} // return current date
 
     listOfHdb = listOfHdb.filter((hdb) => {
       const hdbLeaseYear = new Date(hdb.lease_commence_date, 0)
-      console.log("hdbLeaseYear", hdbLeaseYear)
-      return (hdbLeaseYear > leaseStart && hdbLeaseYear < leaseStart)
+      return (hdbLeaseYear > leaseStart && hdbLeaseYear < leaseEnd)
     })
+    
 
     //Sqm filter
+    const priceMin = resale_price[0]
+    const priceMax = resale_price[1]
+
+    listOfHdb = listOfHdb.filter((hdb) => {
+      return (hdb.resale_price > priceMin && hdb.resale_price < priceMax)
+    })
 
     //Price filter
+    const floorSqMin = floor_area_sqm[0]
+    const floorSqMax = floor_area_sqm[1]
+
+    listOfHdb = listOfHdb.filter((hdb) => {
+      return (hdb.floor_area_sqm > floorSqMin && hdb.floor_area_sqm < floorSqMax)
+    })
 
 
     //Get unique addresses only and its average price
@@ -172,8 +179,6 @@ export const apiHDBGet = async ({
     );
 
     context.setResults(listOfHdbWithCoord);
-
-    console.log("context in helperapi", context);
 
     setLoading(false);
   } catch (error) {
