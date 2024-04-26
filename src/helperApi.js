@@ -77,7 +77,6 @@ export const apiHDBGet = async ({
 
     apiCallResults.map((apiCallResult) => {
       const records = apiCallResult.data.result.records;
-      console.log("records", records);
       records.map((record) => {
         listOfHdb.push(record);
       });
@@ -146,8 +145,6 @@ export const apiHDBGet = async ({
       }
     });
 
-    console.log("listofHdb", listOfHdb);
-
     //Get avg price
     const varAveragePrices = [];
     varTotalPricePerAddresses.map((varTotalPricePerAddress, index) => {
@@ -198,7 +195,6 @@ export const apiHDBGetSpecificAddress = async ({
     const { block, street_name } = params;
 
     const filters = `{"block":"${block}", "street_name":"${street_name}"}`;
-    console.log("filters", filters);
 
     //First call to check how many rows are there
     const response = await apiHDB.get(``, {
@@ -209,9 +205,7 @@ export const apiHDBGetSpecificAddress = async ({
       },
     });
 
-    console.log("response", response);
     totalRow = response.data.result.total;
-    console.log("totalRow", totalRow);
 
     //Set rowLimit if totalRow < rowLimit
     if (totalRow < rowLimit) {
@@ -235,10 +229,7 @@ export const apiHDBGetSpecificAddress = async ({
 
       //setRowRead(prevState => prevState + rowLimit);
       rowRead += rowLimit;
-      console.log("rowRead", rowRead);
     }
-
-    console.log("promises", promises);
 
     //Use Promise.all combinator
     const apiCallResults = await Promise.all(promises);
@@ -248,7 +239,6 @@ export const apiHDBGetSpecificAddress = async ({
 
     apiCallResults.map((apiCallResult) => {
       const records = apiCallResult.data.result.records;
-      console.log("records", records);
       records.map((record) => {
         listOfHdb.push(record);
       });
