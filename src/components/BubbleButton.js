@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import FilterContext from "../context/FilterContext";
+import "./BubbleButton.css";
 
 const BubbleButton = ({ index, data }) => {
   const context = useContext(FilterContext);
