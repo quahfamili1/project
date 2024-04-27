@@ -23,17 +23,25 @@ export const apiHDBGet = async ({
     //Build filter based on API requirements
     let filter =
       "{" +
-      (town != "All" ? '"town": "' + town + '",' : "") +
-      (flat_type != "All" ? '"flat_type": "' + flat_type + '",' : "") +
-      (storey_range != "All" ? '"storey_range": "' + storey_range + '",' : "") +
-      (flat_model != "All" ? '"flat_model": "' + flat_model + '",' : "");
+      (town != "All" && town != "" ? '"town": "' + town + '",' : "") +
+      (flat_type != "All" && flat_type != ""
+        ? '"flat_type": "' + flat_type + '",'
+        : "") +
+      (storey_range != "All" && storey_range != ""
+        ? '"storey_range": "' + storey_range + '",'
+        : "") +
+      (flat_model != "All" && flat_model != ""
+        ? '"flat_model": "' + flat_model + '",'
+        : "");
 
     if (filter[filter.length - 1] == ",") {
       filter = filter.slice(0, -1);
     }
 
     filter += "}";
-
+    console.log(town != "All");
+    console.log(town == "");
+    console.log("testfilters", filter);
     //First call to check how many rows are there
     const response = await apiHDB.get(``, {
       params: {
@@ -81,47 +89,61 @@ export const apiHDBGet = async ({
         listOfHdb.push(record);
       });
     });
-    
+
     //Additional filter that cant use API
     //Transaction month filter
-    let transactionTimeStart = month[0]
-    if(transactionTimeStart == null){transactionTimeStart = new Date(0, 0)}
-    let transactionTimeEnd = month[1]
-    if(transactionTimeEnd == null){transactionTimeEnd = new Date()} // return current date
+    let transactionTimeStart = month[0];
+    if (transactionTimeStart == null) {
+      transactionTimeStart = new Date(0, 0);
+    }
+    let transactionTimeEnd = month[1];
+    if (transactionTimeEnd == null) {
+      transactionTimeEnd = new Date();
+    } // return current date
 
     listOfHdb = listOfHdb.filter((hdb) => {
-      const hdbTransactionTime = new Date(hdb.month.split("-")[0], hdb.month.split("-")[1])
-      return (hdbTransactionTime > transactionTimeStart && hdbTransactionTime < transactionTimeEnd)
-    })
+      const hdbTransactionTime = new Date(
+        hdb.month.split("-")[0],
+        hdb.month.split("-")[1]
+      );
+      return (
+        hdbTransactionTime > transactionTimeStart &&
+        hdbTransactionTime < transactionTimeEnd
+      );
+    });
 
     //Lease start filter
-    let leaseStart = lease_commence_date[0]
-    if(leaseStart == null){leaseStart = new Date(0, 0)}
-    let leaseEnd = lease_commence_date[1]
-    if(leaseEnd == null){leaseEnd = new Date()} // return current date
+    let leaseStart = lease_commence_date[0];
+    if (leaseStart == null) {
+      leaseStart = new Date(0, 0);
+    }
+    let leaseEnd = lease_commence_date[1];
+    if (leaseEnd == null) {
+      leaseEnd = new Date();
+    } // return current date
 
     listOfHdb = listOfHdb.filter((hdb) => {
-      const hdbLeaseYear = new Date(hdb.lease_commence_date, 0)
-      return (hdbLeaseYear > leaseStart && hdbLeaseYear < leaseEnd)
-    })
-    
+      const hdbLeaseYear = new Date(hdb.lease_commence_date, 0);
+      return hdbLeaseYear > leaseStart && hdbLeaseYear < leaseEnd;
+    });
 
     //Sqm filter
-    const priceMin = resale_price[0]
-    const priceMax = resale_price[1]
+    const priceMin = resale_price[0];
+    const priceMax = resale_price[1];
 
     listOfHdb = listOfHdb.filter((hdb) => {
-      return (hdb.resale_price > priceMin && hdb.resale_price < priceMax)
-    })
+      return hdb.resale_price > priceMin && hdb.resale_price < priceMax;
+    });
 
     //Price filter
-    const floorSqMin = floor_area_sqm[0]
-    const floorSqMax = floor_area_sqm[1]
+    const floorSqMin = floor_area_sqm[0];
+    const floorSqMax = floor_area_sqm[1];
 
     listOfHdb = listOfHdb.filter((hdb) => {
-      return (hdb.floor_area_sqm > floorSqMin && hdb.floor_area_sqm < floorSqMax)
-    })
+      return hdb.floor_area_sqm > floorSqMin && hdb.floor_area_sqm < floorSqMax;
+    });
 
+    console.log("test", listOfHdb);
 
     //Get unique addresses only and its average price
     const varUniqueAddresses = [];
