@@ -1,9 +1,10 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Marker, Tooltip, Popup, useMap } from "react-leaflet";
 import { Icon } from "leaflet";
 import "./AddressIcon.css";
 import FilterContext from "../context/FilterContext";
 import { useNavigate } from "react-router-dom";
+import { apiLocalPostFavourite } from "../helperApi";
 
 const AddressIcon = ({ address, lat, lon, avgPrice, block, street_name }) => {
   const customIcon = new Icon({
@@ -14,9 +15,17 @@ const AddressIcon = ({ address, lat, lon, avgPrice, block, street_name }) => {
   const context = useContext(FilterContext);
   const navigate = useNavigate();
 
+  const [disableFavButton, setDisableFavButton] = useState(false);
+
   const handlerShowPrevTransactions = (block, street_name) => {
     context.setIsSelected(true);
-    navigate(`../trend/${block}/${street_name}`);
+    //navigate(`../trend/${block}/${street_name}`);
+    window.open(`../trend/${block}/${street_name}`);
+  };
+
+  const handlerAddToFavourite = (block, streetName) => {
+    apiLocalPostFavourite({id: 1, block: block, streetName: streetName})
+    setDisableFavButton(true);
   };
 
   return (
@@ -35,6 +44,12 @@ const AddressIcon = ({ address, lat, lon, avgPrice, block, street_name }) => {
             onClick={() => handlerShowPrevTransactions(block, street_name)}
           >
             Show previous transactions
+          </button>
+          <button
+            onClick={() => handlerAddToFavourite(block, street_name)}
+            //disabled={disableFavButton}
+          >
+            Save to favourite
           </button>
         </Popup>
       </Tooltip>

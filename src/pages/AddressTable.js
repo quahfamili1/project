@@ -47,7 +47,8 @@ const AddressTable = () => {
   const handlerShowPrevTransactions = (address) => {
     const { block, street_name } = address;
     context.setIsSelected(true);
-    navigate(`../trend/${block}/${street_name}`);
+    //navigate(`../trend/${block}/${street_name}`);
+    window.open(`../trend/${block}/${street_name}`);
   };
 
   const handlerShowOnMap = (address) => {

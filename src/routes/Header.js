@@ -27,14 +27,18 @@ const Header = () => {
             <li>Result</li>
           </Link>
         )}
-        {context.isSelected && (
+        {/* {context.isSelected && (
           <Link to="/Trend" className={styles.list}>
             <li>Trends</li>
           </Link>
-        )}
+        )} */}
+        <Link to="/favourite" className={styles.list}>
+          <li>Favourite</li>
+        </Link>
         <Link to="/Aboutus" className={styles.list}>
           <li>About us</li>
         </Link>
+
         <a className={styles.icon} onClick={() => setClicked(!clicked)}>
           <i className="fa fa-bars"></i>
         </a>

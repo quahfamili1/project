@@ -5,8 +5,10 @@ import Homepage from "./routes/Homepage";
 import Result from "./routes/Result";
 import Trend from "./routes/Trend";
 import Aboutus from "./routes/Aboutus";
+import Login from "./routes/Login";
 import { FilterProvider } from "./context/FilterContext";
 import { useEffect } from "react";
+import Favourite from "./routes/Favourite";
 
 function App() {
   const DefaultPage = () => <p>Nothing to see here!</p>;
@@ -26,6 +28,8 @@ function App() {
             <Route path="result" element={<Result />}></Route>
             <Route path="trend/:block/:street_name" element={<Trend />}></Route>
             <Route path="aboutus" element={<Aboutus />}></Route>
+            <Route path="login" element={<Login />}></Route>
+            <Route path="favourite" element={<Favourite />}></Route>
             <Route path="*" element={<DefaultPage />} />
           </Routes>
         </BrowserRouter>
