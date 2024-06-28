@@ -1,6 +1,7 @@
 import apiHDB from "./api/apiHDB";
 import { useState, useEffect } from "react";
 import { hdbCoord } from "./data/hdbCoord";
+import apiLocal from "./api/apiLocal";
 
 export const apiHDBGet = async ({
   rowLimit,
@@ -268,6 +269,48 @@ export const apiHDBGetSpecificAddress = async ({
 
     context.setResultsAddressChosen(listOfHdb);
     setLoading(false);
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const apiLocalGetFavourite = async ({
+  id,
+  setLoading,
+  setFavourites,
+}) => {
+  try {
+    const response = await apiLocal.get(`/user/${id}/favourite`);
+    setFavourites(response.data);
+    setLoading(false);
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const apiLocalPostFavourite = async ({ id, block, streetName }) => {
+
+  try {
+    const response = await apiLocal.post(`/user/${id}/favourite`, {
+      "block": block,
+      "streetName": streetName,
+    });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export const apiLocalDeleteFavourite = async ({ id, setFavourites, setLoading, favId }) => {
+
+  try {
+    const responseDelete = await apiLocal.delete(`/user/favourite/${favId}`);
+
+    //Update favourites
+    const responseGet = await apiLocal.get(`/user/${id}/favourite`);
+    console.log(responseGet)
+    setFavourites(responseGet.data);
+    setLoading(false);
+
   } catch (error) {
     console.log(error.message);
   }
